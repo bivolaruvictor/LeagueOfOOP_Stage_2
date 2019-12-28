@@ -27,7 +27,7 @@ public abstract class Player implements Visitable {
     private AbilityFactory abilityFactory;
     private boolean isAlive;
     private int bruteDamage;
-
+    private float strategyMultiplyer;
     Player() {
         round = 0;
         xp = 0;
@@ -43,6 +43,7 @@ public abstract class Player implements Visitable {
         isAlive = true;
         overtimeRounds = 0;
         overtimeDamage = 0;
+        strategyMultiplyer = 1f;
     }
     /**/
     public AbilityFactory getAbilityFactory() {
@@ -119,6 +120,16 @@ public abstract class Player implements Visitable {
         isAlive = alive;
     }
     /**/
+    public void respawned() {
+        setHp(0);
+        isAlive = true;
+    }
+    /**/
+    public void doomed() {
+        setHp(-1);
+        isAlive = false;
+    }
+    /**/
     public Float getRaceBonus() {
         return raceBonus;
     }
@@ -189,7 +200,7 @@ public abstract class Player implements Visitable {
     public int getOvertimeDamage() {
         return overtimeDamage;
     }
-    /*block este parametrul care dicteaza cate runde de "stat pe bara mai are"*/
+    /*block este parametrul care dicteaza cate runde de "stat pe bara" mai are*/
     public int getBlock() {
         return block;
     }
@@ -316,5 +327,20 @@ public abstract class Player implements Visitable {
             return "alive";
         }
         return "dead";
+    }
+    /**/
+    public void setStrategy() {
+    }
+    /**/
+    public float getStrategyMultiplyer() {
+        return strategyMultiplyer;
+    }
+    /**/
+    public void setStrategyMultiplyer(final float strategyMultiplyer) {
+        this.strategyMultiplyer = strategyMultiplyer;
+    }
+    /**/
+    public void resetStrategyMultiplyer() {
+        this.strategyMultiplyer = 1f;
     }
 }

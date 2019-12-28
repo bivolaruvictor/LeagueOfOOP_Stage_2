@@ -14,4 +14,14 @@ public final class KnightConstants {
     public static final int SLAM_STARTING_DAMAGE = 100;
     public static final int SLAM_DAMAGE_ADDED_PER_LEVEL = 40;
     public static final int ROUNDS_OF_SLAM_STUN = 1;
+
+    /*Stage 2*/
+    public static final int OFFENSE_MIN_HP_MULTIPLYER = 3;
+    public static final int OFFENSE_MAX_HP_MULTIPLYER = 2;
+    public static final int OFFENSE_HP_MULTIPLYER = 5;
+    public static final float OFFENSE_DAMAGE_MULTIPLYER = 0.5f;
+
+    public static final int DEFENSE_MAX_HP_MULTIPLYER = 3;
+    public static final int DEFENSE_HP_MULTIPLYER = 4;
+    public static final float DEFENSE_DAMAGE_MULTIPLYER = -0.2f;
 }

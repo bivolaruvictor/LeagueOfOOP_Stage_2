@@ -16,4 +16,14 @@ public final class PyromancerConstants {
     public static final int ROUNDS_OF_IGNITE_SECONDARY_DAMAGE = 2;
     public static final int IGNITE_SECONDARY_STARTING_DAMAGE = 50;
     public static final int IGNITE_SECONDARY_DAMAGE_PER_LEVEL = 30;
+
+    /*Stage 2*/
+    public static final int OFFENSE_MIN_HP_MULTIPLYER = 4;
+    public static final int OFFENSE_MAX_HP_MULTIPLYER = 3;
+    public static final int OFFENSE_HP_MULTIPLYER = 3;
+    public static final float OFFENSE_DAMAGE_MULTIPLYER = 0.7f;
+
+    public static final int DEFENSE_MAX_HP_MULTIPLYER = 4;
+    public static final int DEFENSE_HP_MULTIPLYER = 3;
+    public static final float DEFENSE_DAMAGE_MULTIPLYER = -0.3f;
 }

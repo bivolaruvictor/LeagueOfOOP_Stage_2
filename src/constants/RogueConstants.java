@@ -16,4 +16,14 @@ public final class RogueConstants {
     public static final int PARALYSIS_DAMAGE_ADDED_PER_LEVEL = 10;
     public static final int PARALYSIS_EFFECT_WOODS = 6;
     public static final int PARALYSIS_EFFECT_ALL_TERRAIN = 3;
+
+    /*Stage 2*/
+    public static final int OFFENSE_MIN_HP_MULTIPLYER = 7;
+    public static final int OFFENSE_MAX_HP_MULTIPLYER = 5;
+    public static final int OFFENSE_HP_MULTIPLYER = 7;
+    public static final float OFFENSE_DAMAGE_MULTIPLYER = 1.4f;
+
+    public static final int DEFENSE_MAX_HP_MULTIPLYER = 7;
+    public static final int DEFENSE_HP_MULTIPLYER = 2;
+    public static final float DEFENSE_DAMAGE_MULTIPLYER = 0.9f;
 }

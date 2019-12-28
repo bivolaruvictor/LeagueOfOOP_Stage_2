@@ -37,4 +37,19 @@ public class Knight extends Player {
         this.setBruteDamage(player.getBruteDamage());
         super.fightPlayer(player);
     }
+
+    @Override
+    /**/
+    public void setStrategy() {
+        if (getMaxHp() / KnightConstants.OFFENSE_MIN_HP_MULTIPLYER < getHp()
+                && getHp() < getMaxHp() / KnightConstants.OFFENSE_MAX_HP_MULTIPLYER) {
+            setHp(getHp() - getHp() / KnightConstants.OFFENSE_HP_MULTIPLYER);
+            setStrategyMultiplyer(KnightConstants.OFFENSE_DAMAGE_MULTIPLYER);
+        } else {
+            if (getHp() < getMaxHp() / KnightConstants.DEFENSE_MAX_HP_MULTIPLYER) {
+                setHp(getHp() + getHp() / KnightConstants.DEFENSE_HP_MULTIPLYER);
+                setStrategyMultiplyer(KnightConstants.DEFENSE_DAMAGE_MULTIPLYER);
+            }
+        }
+    }
 }
