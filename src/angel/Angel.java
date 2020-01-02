@@ -1,10 +1,8 @@
 package angel;
 
 import abilities.Visitor;
-import player.Knight;
-import player.Pyromancer;
-import player.Rogue;
-import player.Wizard;
+import magician.Magician;
+import player.*;
 
 public class Angel implements Visitor {
     private AngelType angelType;
@@ -43,7 +41,6 @@ public class Angel implements Visitor {
         this.xCoordinate = x;
         this.yCoordinate = y;
     }
-
     @Override
     /**/
     public String toString() {
@@ -53,17 +50,21 @@ public class Angel implements Visitor {
 
     @Override
     public void interactWith(final Knight knight) {
+        Magician.getInstance().update(knight);
     }
 
     @Override
     public void interactWith(final Pyromancer pyromancer) {
+        Magician.getInstance().update(pyromancer);
     }
 
     @Override
     public void interactWith(final Wizard wizard) {
+        Magician.getInstance().update(wizard);
     }
 
     @Override
     public void interactWith(final Rogue rogue) {
+        Magician.getInstance().update(rogue);
     }
 }

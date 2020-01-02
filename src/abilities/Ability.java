@@ -9,6 +9,8 @@ public abstract class Ability implements Visitor {
     private int damage;
     private float landModifier;
     private float raceModifier;
+    private float helperModifier;
+    private float strategyMultiplyer;
     private AbilityType abilityType;
     private Integer casterLevel;
     private GameMap gameMap = GameMap.getInstance();
@@ -17,6 +19,24 @@ public abstract class Ability implements Visitor {
     public Ability(final Player player) {
         landModifier = 1.0f;
         raceModifier = 1.0f;
+        helperModifier = 0f;
+        strategyMultiplyer = 0f;
+    }
+    /**/
+    public float getHelperModifier() {
+        return helperModifier;
+    }
+    /**/
+    public void setHelperModifier(final float helperModifier) {
+        this.helperModifier = helperModifier;
+    }
+    /**/
+    public float getStrategyMultiplyer() {
+        return strategyMultiplyer;
+    }
+    /**/
+    public void setStrategyMultiplyer(final float strategyMultiplyer) {
+        this.strategyMultiplyer = strategyMultiplyer;
     }
     /**/
     public int getDamage() {

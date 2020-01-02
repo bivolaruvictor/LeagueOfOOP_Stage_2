@@ -18,7 +18,7 @@ public class Ignite extends Ability {
         setCasterLevel(player.getLevel());
         if (getGameMap().getMap().get(player.getxCoordinate()).
                 get(player.getyCoordinate()).getTerrainType().equals(TerrainType.volcanic)) {
-            setLandModifier(LandMultipliers.VOLCANIC_MULTIPLIER);
+            setLandModifier(LandMultipliers.VOLCANIC_MULTIPLIER + getStrategyMultiplyer() + getHelperModifier());
         }
         player.setBruteDamage(player.getBruteDamage() + Math.round((getBaseDamage()
                 + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
@@ -26,7 +26,7 @@ public class Ignite extends Ability {
     }
     /**/
     public void interactWith(final Knight player) {
-        setRaceModifier(RaceMultiplier.PYROMANCER_ON_KNIGHT_IGNITE);
+        setRaceModifier(RaceMultiplier.PYROMANCER_ON_KNIGHT_IGNITE + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -40,7 +40,7 @@ public class Ignite extends Ability {
     }
     /**/
     public void interactWith(final Pyromancer player) {
-        setRaceModifier(RaceMultiplier.PYROMANCER_ON_PYROMANCER_IGNITE);
+        setRaceModifier(RaceMultiplier.PYROMANCER_ON_PYROMANCER_IGNITE + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -56,7 +56,7 @@ public class Ignite extends Ability {
     }
     /**/
     public void interactWith(final Wizard player) {
-        setRaceModifier(RaceMultiplier.PYROMANCER_ON_WIZARD_IGNITE);
+        setRaceModifier(RaceMultiplier.PYROMANCER_ON_WIZARD_IGNITE + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -72,7 +72,7 @@ public class Ignite extends Ability {
     }
     /**/
     public void interactWith(final Rogue player) {
-        setRaceModifier(RaceMultiplier.PYROMANCER_ON_ROGUE_IGNITE);
+        setRaceModifier(RaceMultiplier.PYROMANCER_ON_ROGUE_IGNITE + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());

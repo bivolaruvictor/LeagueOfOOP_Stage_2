@@ -18,7 +18,7 @@ public class Fireblast extends Ability {
         setCasterLevel(player.getLevel());
         if (getGameMap().getMap().get(player.getxCoordinate()).
                 get(player.getyCoordinate()).getTerrainType().equals(TerrainType.volcanic)) {
-            setLandModifier(LandMultipliers.VOLCANIC_MULTIPLIER);
+            setLandModifier(LandMultipliers.VOLCANIC_MULTIPLIER + getStrategyMultiplyer() + getHelperModifier());
         }
         player.setBruteDamage(Math.round((getBaseDamage()
                 + PyromancerConstants.FIREBLAST_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
@@ -26,7 +26,7 @@ public class Fireblast extends Ability {
     }
     /**/
     public void interactWith(final Knight player) {
-        setRaceModifier(RaceMultiplier.PYROMANCER_ON_KNIGHT_FIREBLAST);
+        setRaceModifier(RaceMultiplier.PYROMANCER_ON_KNIGHT_FIREBLAST + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + PyromancerConstants.FIREBLAST_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -35,7 +35,7 @@ public class Fireblast extends Ability {
     }
     /**/
     public void interactWith(final Pyromancer player) {
-        setRaceModifier(RaceMultiplier.PYROMANCER_ON_PYROMANCER_FIREBLAST);
+        setRaceModifier(RaceMultiplier.PYROMANCER_ON_PYROMANCER_FIREBLAST + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + PyromancerConstants.FIREBLAST_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -44,7 +44,7 @@ public class Fireblast extends Ability {
     }
     /**/
     public void interactWith(final Wizard player) {
-        setRaceModifier(RaceMultiplier.PYROMANCER_ON_WIZARD_FIREBLAST);
+        setRaceModifier(RaceMultiplier.PYROMANCER_ON_WIZARD_FIREBLAST + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + PyromancerConstants.FIREBLAST_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -53,7 +53,7 @@ public class Fireblast extends Ability {
     }
     /**/
     public void interactWith(final Rogue player) {
-        setRaceModifier(RaceMultiplier.PYROMANCER_ON_ROGUE_FIREBLAST);
+        setRaceModifier(RaceMultiplier.PYROMANCER_ON_ROGUE_FIREBLAST + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + PyromancerConstants.FIREBLAST_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());

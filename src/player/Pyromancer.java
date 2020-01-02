@@ -28,9 +28,13 @@ public class Pyromancer extends Player {
     public void fightPlayer(final Player player) {
         Fireblast fireblast = (Fireblast) getAbilityFactory()
                 .getAbilityType(AbilityType.fireblast, player);
+        fireblast.setStrategyMultiplyer(getStrategyMultiplyer());
+        fireblast.setHelperModifier(getHelperMultiplyer());
         player.accept(fireblast);
         player.recieveDamage();
         Ignite ignite = (Ignite) getAbilityFactory().getAbilityType(AbilityType.ignite, player);
+        ignite.setStrategyMultiplyer(getStrategyMultiplyer());
+        ignite.setHelperModifier(getHelperMultiplyer());
         player.accept(ignite);
         player.recieveDamage();
         this.setBruteDamage(player.getBruteDamage());

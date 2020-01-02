@@ -16,10 +16,11 @@ public class Slam extends Ability {
         setCasterLevel(player.getLevel());
         setAbilityType(AbilityType.slam);
         setBaseDamage(KnightConstants.SLAM_STARTING_DAMAGE);
+        setBaseDamage(getBaseDamage());
         if (getGameMap().getMap().get(player.getxCoordinate()).
                 get(player.getyCoordinate()).getTerrainType()
                 .equals(TerrainType.land)) {
-            setLandModifier(LandMultipliers.LAND_MULTIPLIER);
+            setLandModifier(LandMultipliers.LAND_MULTIPLIER + getStrategyMultiplyer() + getHelperModifier());
         }
         player.setBruteDamage(player.getBruteDamage() + Math.round((getBaseDamage()
                 + KnightConstants.SLAM_DAMAGE_ADDED_PER_LEVEL
@@ -27,7 +28,7 @@ public class Slam extends Ability {
     }
     /**/
     public void interactWith(final Knight player) {
-        setRaceModifier(RaceMultiplier.KNIGHT_ON_KNIGHT_SLAM);
+        setRaceModifier(RaceMultiplier.KNIGHT_ON_KNIGHT_SLAM + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.SLAM_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -36,7 +37,7 @@ public class Slam extends Ability {
     }
     /**/
     public void interactWith(final Pyromancer player) {
-        setRaceModifier(RaceMultiplier.KNIGHT_ON_PYROMANCER_SLAM);
+        setRaceModifier(RaceMultiplier.KNIGHT_ON_PYROMANCER_SLAM + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.SLAM_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -45,7 +46,7 @@ public class Slam extends Ability {
     }
     /**/
     public void interactWith(final Wizard player) {
-        setRaceModifier(RaceMultiplier.KNIGHT_ON_WIZARD_SLAM);
+        setRaceModifier(RaceMultiplier.KNIGHT_ON_WIZARD_SLAM + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.SLAM_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -55,7 +56,7 @@ public class Slam extends Ability {
     }
     /**/
     public void interactWith(final Rogue player) {
-        setRaceModifier(RaceMultiplier.KNIGHT_ON_ROGUE_SLAM);
+        setRaceModifier(RaceMultiplier.KNIGHT_ON_ROGUE_SLAM + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.SLAM_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());

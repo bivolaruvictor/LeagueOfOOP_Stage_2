@@ -3,6 +3,7 @@ import angel.Angel;
 import angel.AngelFactory;
 import angel.AngelType;
 import fileio.FileSystem;
+import magician.Magician;
 import player.Player;
 import player.PlayerFactory;
 import player.PlayerType;
@@ -55,6 +56,7 @@ public class Loader {
             noRows = fs.nextInt();
             noColumns = fs.nextInt();
             GameMap gameMap = GameMap.getInstance(noRows, noColumns);
+            Magician grandMagician = Magician.getInstance();
 
             for (int i = 0; i < noRows; ++i) {
                 tType = fs.nextWord();
@@ -72,15 +74,13 @@ public class Loader {
                 pType = fs.nextWord();
                 initialXCoordinate = fs.nextInt();
                 initialYCoordinate = fs.nextInt();
-
                 Player dummy = playerFactory.getPlayerType(checkPlayer(pType));
                 dummy.setStartingPosition(initialXCoordinate, initialYCoordinate);
+                dummy.setId(i);
                 players.add(dummy);
             }
 
             noRounds = fs.nextInt();
-
-            //angels = new ArrayList<>(Collections.nCopies(noRounds, null));
 
             for (int i = 0; i < noRounds; ++i) {
                 move = fs.nextWord();
@@ -111,13 +111,13 @@ public class Loader {
                 }
             }
 
-            for (int i = 0; i < angels.size(); ++i) {
-                if (angels.get(i) != null) {
-                    System.out.println("Round " + i + " " + angels.get(i).toString());
-                } else {
-                    System.out.println("Round " + i + " null");
-                }
-            }
+//            for (int i = 0; i < angels.size(); ++i) {
+//                if (angels.get(i) != null) {
+//                    System.out.println("Round " + i + " " + angels.get(i).toString());
+//                } else {
+//                    System.out.println("Round " + i + " null");
+//                }
+//            }
             fs.close();
 
         } catch (Exception e1) {

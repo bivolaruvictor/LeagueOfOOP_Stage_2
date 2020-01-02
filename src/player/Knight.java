@@ -22,16 +22,20 @@ public class Knight extends Player {
                 + KnightConstants.KNIGHT_HP_PER_LEVEL * getLevel();
     }
     /**/
-    public void accept(final Visitor ability) {
-        ability.interactWith(this);
+    public void accept(final Visitor visitor) {
+        visitor.interactWith(this);
     }
     /**/
     @Override
     public void fightPlayer(final Player player) {
         Execute execute = (Execute) getAbilityFactory().getAbilityType(AbilityType.execute, player);
+        execute.setStrategyMultiplyer(getStrategyMultiplyer());
+        execute.setHelperModifier(getHelperMultiplyer());
         player.accept(execute);
         player.recieveDamage();
         Slam slam = (Slam) getAbilityFactory().getAbilityType(AbilityType.slam, player);
+        slam.setStrategyMultiplyer(getStrategyMultiplyer());
+        slam.setHelperModifier(getHelperMultiplyer());
         player.accept(slam);
         player.recieveDamage();
         this.setBruteDamage(player.getBruteDamage());

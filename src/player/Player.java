@@ -2,13 +2,18 @@ package player;
 
 import abilities.AbilityFactory;
 import abilities.Visitor;
+import angel.Angel;
+import angel.AngelType;
 import constants.PlayerConstants;
+import magician.Magician;
+import magician.Observer;
 import main.GameMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player implements Visitable {
+    private int id;
     private int round;
     private int hp;
     private PlayerType type;
@@ -28,6 +33,12 @@ public abstract class Player implements Visitable {
     private boolean isAlive;
     private int bruteDamage;
     private float strategyMultiplyer;
+    private float helperMultiplyer;
+    private ArrayList<Observer> observers;
+    private boolean isDoomed;
+    private AngelType helpedBy;
+    private Player killedBy;
+    private boolean showedKilled;
     Player() {
         round = 0;
         xp = 0;
@@ -43,7 +54,58 @@ public abstract class Player implements Visitable {
         isAlive = true;
         overtimeRounds = 0;
         overtimeDamage = 0;
-        strategyMultiplyer = 1f;
+        strategyMultiplyer = 0f;
+        helpedBy = null;
+        killedBy = null;
+        showedKilled = false;
+    }
+    /**/
+    public boolean isShowedKilled() {
+        return showedKilled;
+    }
+    /**/
+    public void setShowedKilled(final boolean showedKilled) {
+        this.showedKilled = showedKilled;
+    }
+    /**/
+    public Player getKilledBy() {
+        return killedBy;
+    }
+    /**/
+    public void setKilledBy(final Player killedBy) {
+        this.killedBy = killedBy;
+    }
+    /**/
+    public int getId() {
+        return id;
+    }
+    /**/
+    public void setId(final int id) {
+        this.id = id;
+    }
+    /**/
+    public AngelType isHelpedBy() {
+        return helpedBy;
+    }
+    /**/
+    public void setHelpedBy(final AngelType helpedBy) {
+        this.helpedBy = helpedBy;
+    }
+    /**/
+    public float getHelperMultiplyer() {
+        return helperMultiplyer;
+    }
+    /**/
+    public void setHelperMultiplyer(final float helperMultiplyer) {
+        this.helperMultiplyer = helperMultiplyer;
+    }
+    /**/
+    public void resetHelperMultiplyer() {
+        helperMultiplyer = 0f;
+    }
+    /**/
+    public void addObserver() {
+        observers.add(Magician.getInstance());
     }
     /**/
     public AbilityFactory getAbilityFactory() {
@@ -126,6 +188,8 @@ public abstract class Player implements Visitable {
     }
     /**/
     public void doomed() {
+        setHelpedBy(AngelType.TheDoomer);
+        Magician.getInstance().update(this);
         setHp(-1);
         isAlive = false;
     }
@@ -167,6 +231,25 @@ public abstract class Player implements Visitable {
     /**/
     public PlayerType getType() {
         return type;
+    }
+    /**/
+    public String getTypeString() {
+        if (getType().equals(PlayerType.knight)) {
+            return "Knight";
+        } else {
+            if (getType().equals(PlayerType.pyromancer)) {
+                return "Pyromancer";
+            } else {
+                if (getType().equals(PlayerType.wizard)) {
+                    return "Wizard";
+                } else {
+                    if (getType().equals(PlayerType.rogue)) {
+                        return "Rogue";
+                    }
+                }
+            }
+        }
+        return null;
     }
     /**/
     public int getHp() {
@@ -224,7 +307,7 @@ public abstract class Player implements Visitable {
         }
     }
     /**/
-    public void accept(final Visitor ability) {
+    public void accept(final Visitor visitor) {
     }
     /*Se poate bate cu un jucator doar daca au aceleasi coordonate*/
     public boolean fight(final Player player) {
@@ -251,9 +334,11 @@ public abstract class Player implements Visitable {
             * Este astfel acoperit si cazul mortii simultane*/
             if (!this.isAlive()) {
                 attacked.addKilledXp(this);
+                this.setKilledBy(attacked);
             }
             if (!attacked.isAlive()) {
                 this.addKilledXp(attacked);
+                attacked.setKilledBy(this);
             }
         }
     }
@@ -316,10 +401,16 @@ public abstract class Player implements Visitable {
         int oldLevel = getLevel();
         int newLevel = (getXp() - PlayerConstants.XP_LEVEL_UP_BASE)
                 / PlayerConstants.XP_LEVEL_UP_MULTIPLYER + 1;
-        if (newLevel != oldLevel) {
+        if (newLevel != oldLevel && newLevel > 0) {
             setLevel(newLevel);
             setHp(getMaxHp());
         }
+    }
+    /**/
+    public void setLevelAngel() {
+        setXp(PlayerConstants.XP_LEVEL_UP_BASE + getLevel() * PlayerConstants.XP_LEVEL_UP_MULTIPLYER);
+        setLevel(getLevel() + 1);
+        setHp(getMaxHp());
     }
     /**/
     public String alive() {
@@ -341,6 +432,21 @@ public abstract class Player implements Visitable {
     }
     /**/
     public void resetStrategyMultiplyer() {
-        this.strategyMultiplyer = 1f;
+        this.strategyMultiplyer = 0f;
+    }
+    /**/
+    public boolean canBeHelped(final Angel angel) {
+        if (this.getxCoordinate() == angel.getxCoordinate()
+                && this.getyCoordinate() == angel.getyCoordinate()) {
+            return true;
+        }
+        return false;
+    }
+    /**/
+    public void getHelp(final Angel angel) {
+        if (canBeHelped(angel)) {
+            //System.out.println(angel.toString() + " helped " + this.toString());
+            this.accept(angel);
+        }
     }
 }

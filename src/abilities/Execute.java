@@ -18,7 +18,7 @@ public class Execute extends Ability {
         setCasterLevel(player.getLevel());
         if (getGameMap().getMap().get(player.getxCoordinate()).
                 get(player.getyCoordinate()).getTerrainType().equals(TerrainType.land)) {
-            setLandModifier(LandMultipliers.LAND_MULTIPLIER);
+            setLandModifier(LandMultipliers.LAND_MULTIPLIER + getStrategyMultiplyer() + getHelperModifier());
         }
         player.setBruteDamage(Math.round((getBaseDamage()
                 + KnightConstants.EXECUTE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
@@ -44,7 +44,7 @@ public class Execute extends Ability {
     }
     /**/
     public void interactWith(final Pyromancer player) {
-        setRaceModifier(RaceMultiplier.KNIGHT_ON_PYROMANCER_EXECUTE);
+        setRaceModifier(RaceMultiplier.KNIGHT_ON_PYROMANCER_EXECUTE  + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.EXECUTE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -56,7 +56,7 @@ public class Execute extends Ability {
     }
     /**/
     public void interactWith(final Wizard player) {
-        setRaceModifier(RaceMultiplier.KNIGHT_ON_WIZARD_EXECUTE);
+        setRaceModifier(RaceMultiplier.KNIGHT_ON_WIZARD_EXECUTE + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.EXECUTE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -68,7 +68,7 @@ public class Execute extends Ability {
     }
     /**/
     public void interactWith(final Rogue player) {
-        setRaceModifier(RaceMultiplier.KNIGHT_ON_ROGUE_EXECUTE);
+        setRaceModifier(RaceMultiplier.KNIGHT_ON_ROGUE_EXECUTE + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.EXECUTE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
