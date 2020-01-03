@@ -13,25 +13,31 @@ public class TheDoomer extends Angel {
     /**/
     @Override
     public void interactWith(final Knight knight) {
-        knight.doomed();
+        if (knight.isAlive()) {
+            knight.setHelpedBy(AngelType.TheDoomer);
+            knight.setAlive(false);
+        }
         super.interactWith(knight);
     }
     /**/
     @Override
     public void interactWith(final Pyromancer pyromancer) {
-        pyromancer.doomed();
+        pyromancer.setHelpedBy(AngelType.TheDoomer);
+        pyromancer.setAlive(false);
         super.interactWith(pyromancer);
     }
     /**/
     @Override
     public void interactWith(final Wizard wizard) {
-        wizard.doomed();
+        wizard.setHelpedBy(AngelType.TheDoomer);
+        wizard.setAlive(false);
         super.interactWith(wizard);
     }
     /**/
     @Override
     public void interactWith(final Rogue rogue) {
-        rogue.doomed();
+        rogue.setHelpedBy(AngelType.TheDoomer);
+        rogue.setAlive(false);
         super.interactWith(rogue);
     }
 }

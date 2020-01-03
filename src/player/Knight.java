@@ -33,11 +33,13 @@ public class Knight extends Player {
         execute.setHelperModifier(getHelperMultiplyer());
         player.accept(execute);
         player.recieveDamage();
+        System.out.println(player.toString() + " execute " + player.getRecievedDamage());
         Slam slam = (Slam) getAbilityFactory().getAbilityType(AbilityType.slam, player);
         slam.setStrategyMultiplyer(getStrategyMultiplyer());
         slam.setHelperModifier(getHelperMultiplyer());
         player.accept(slam);
         player.recieveDamage();
+        System.out.println(player.toString() + " slam " + player.getRecievedDamage());
         this.setBruteDamage(player.getBruteDamage());
         super.fightPlayer(player);
     }

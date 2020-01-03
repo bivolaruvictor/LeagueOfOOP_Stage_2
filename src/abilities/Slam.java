@@ -20,7 +20,7 @@ public class Slam extends Ability {
         if (getGameMap().getMap().get(player.getxCoordinate()).
                 get(player.getyCoordinate()).getTerrainType()
                 .equals(TerrainType.land)) {
-            setLandModifier(LandMultipliers.LAND_MULTIPLIER + getStrategyMultiplyer() + getHelperModifier());
+            setLandModifier(LandMultipliers.LAND_MULTIPLIER);
         }
         player.setBruteDamage(player.getBruteDamage() + Math.round((getBaseDamage()
                 + KnightConstants.SLAM_DAMAGE_ADDED_PER_LEVEL
@@ -50,7 +50,7 @@ public class Slam extends Ability {
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.SLAM_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
-
+        // System.out.println("BBBB" + getRaceModifier() + " " + getLandModifier());
         player.setRecievedDamage(damageGiven);
         player.setBlock(KnightConstants.ROUNDS_OF_SLAM_STUN);
     }

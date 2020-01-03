@@ -19,8 +19,6 @@ public abstract class Ability implements Visitor {
     public Ability(final Player player) {
         landModifier = 1.0f;
         raceModifier = 1.0f;
-        helperModifier = 0f;
-        strategyMultiplyer = 0f;
     }
     /**/
     public float getHelperModifier() {

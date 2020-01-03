@@ -1,6 +1,7 @@
 package angel;
 
 import constants.LevelUpAngelConstants;
+import magician.Magician;
 import player.Knight;
 import player.Pyromancer;
 import player.Rogue;
@@ -15,32 +16,32 @@ public class LevelUpAngel extends Angel {
     @Override
     public void interactWith(final Knight knight) {
         knight.setHelpedBy(AngelType.LevelUpAngel);
-        knight.setStrategyMultiplyer(LevelUpAngelConstants.LEVEL_UP_ANGEL_ON_KNIGHT);
-        knight.setLevelAngel();
+        knight.setHelperMultiplyer(knight.getHelperMultiplyer() + LevelUpAngelConstants.LEVEL_UP_ANGEL_ON_KNIGHT);
+        knight.levelUp();
         super.interactWith(knight);
     }
     /**/
     @Override
     public void interactWith(final Pyromancer pyromancer) {
         pyromancer.setHelpedBy(AngelType.LevelUpAngel);
-        pyromancer.setStrategyMultiplyer(LevelUpAngelConstants.LEVEL_UP_ANGEL_ON_PYROMANCER);
-        pyromancer.setLevelAngel();
+        pyromancer.setHelperMultiplyer(pyromancer.getHelperMultiplyer() + LevelUpAngelConstants.LEVEL_UP_ANGEL_ON_PYROMANCER);
+        pyromancer.levelUp();
         super.interactWith(pyromancer);
     }
     /**/
     @Override
     public void interactWith(final Wizard wizard) {
         wizard.setHelpedBy(AngelType.LevelUpAngel);
-        wizard.setStrategyMultiplyer(LevelUpAngelConstants.LEVEL_UP_ANGEL_ON_WIZARD);
-        wizard.setLevelAngel();
+        wizard.setHelperMultiplyer(wizard.getHelperMultiplyer() + LevelUpAngelConstants.LEVEL_UP_ANGEL_ON_WIZARD);
+        wizard.levelUp();
         super.interactWith(wizard);
     }
     /**/
     @Override
     public void interactWith(final Rogue rogue) {
         rogue.setHelpedBy(AngelType.LevelUpAngel);
-        rogue.setStrategyMultiplyer(LevelUpAngelConstants.LEVEL_UP_ANGEL_ON_ROGUE);
-        rogue.setLevelAngel();
+        rogue.setHelperMultiplyer(rogue.getHelperMultiplyer() + LevelUpAngelConstants.LEVEL_UP_ANGEL_ON_ROGUE);
+        rogue.levelUp();
         super.interactWith(rogue);
     }
 }

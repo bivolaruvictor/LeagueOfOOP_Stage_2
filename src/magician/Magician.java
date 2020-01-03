@@ -4,12 +4,15 @@ import angel.Angel;
 import angel.AngelType;
 import player.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class Magician implements Observer {
-    private String updatedAngel;
-    private String updatedPlayer;
+    private String observations;
+    private List<Player> observed;
     private Magician() {
-        updatedPlayer = "";
-        updatedAngel = "";
+        observed = new ArrayList<>();
+        observations = "";
     }
     private static Magician singleInstance = null;
     public static Magician getInstance() {
@@ -19,70 +22,108 @@ public final class Magician implements Observer {
         return singleInstance;
     }
     /**/
-    public String getUpdatedAngel() {
-        return updatedAngel;
+    public List<Player> getObserved() {
+        return observed;
     }
     /**/
-    public void setUpdatedAngel(final String updatedAngel) {
-        this.updatedAngel = updatedAngel;
+    public void setObserved(final List<Player> observed) {
+        this.observed = observed;
     }
     /**/
-    public String getUpdatedPlayer() {
-        return updatedPlayer;
+    public String getObservations() {
+        return observations;
     }
     /**/
-    public void setUpdatedPlayer(final String updatedPlayer) {
-        this.updatedPlayer = updatedPlayer;
+    public void setObservations(final String observations) {
+        this.observations = observations;
     }
-    /**/
+    /*La final updatez "baza de date"*/
     @Override
     public void update(final Player player) {
-        if (player.getKilledBy() == null) {
-            if (player.isHelpedBy().equals(AngelType.TheDoomer)) {
-                setUpdatedPlayer("TheDoomer hit " + player.getTypeString() + " " + player.getId()
-                        + "\n" + "Player " + player.getTypeString() + " " + player.getId()
-                        + " was killed by an angel");
-            }
-            if (player.isHelpedBy().equals(AngelType.DamageAngel)) {
-                setUpdatedPlayer("DamageAngel helped " + player.getTypeString() + " "
-                        + player.getId());
-            }
-            if (player.isHelpedBy().equals(AngelType.Dracula)) {
-                setUpdatedPlayer("Dracula hit " + player.getTypeString() + " "
-                        + player.getId());
-            }
-            if (player.isHelpedBy().equals(AngelType.XPAngel)) {
-                setUpdatedPlayer("XPAngel helped " + player.getTypeString() + " "
-                        + player.getId());
-            }
-            if (player.isHelpedBy().equals(AngelType.SmallAngel)) {
-                setUpdatedPlayer("SmallAngel helped " + player.getTypeString() + " "
-                        + player.getId());
-            }
-            if (player.isHelpedBy().equals(AngelType.GoodBoy)) {
-                setUpdatedPlayer("GoodBoy helped " + player.getTypeString() + " "
-                        + player.getId());
-            }
-            if (player.isHelpedBy().equals(AngelType.LifeGiver)) {
-                setUpdatedPlayer("LifeGiver helped " + player.getTypeString() + " "
-                        + player.getId());
-            }
-            if (player.isHelpedBy().equals(AngelType.LevelUpAngel)) {
-                setUpdatedPlayer("LevelUpAngel helped " + player.getTypeString() + " "
-                        + player.getId());
+        Player dummy = getObserved().get(player.getId());
+        if (player.getKilledBy() != null) {
+            dummy.setKilledBy(player.getKilledBy());
+            updateKilledBy(player);
+            player.setKilledBy(null);
+        }
+        if (player.isHelpedBy() != null) {
+            dummy.setHelpedBy(player.isHelpedBy());
+            updateHelpedBy(player);
+        }
+        if (dummy.getLevel() != player.getLevel()) {
+            int howMany = player.getLevel() - dummy.getLevel();
+            dummy.setLevel(player.getLevel());
+            updateLevelUp(player, howMany);
+        }
+    }
+    /**/
+    public void updateLevelUp(final Player player, final int howMany) {
+        for (int i = howMany - 1; i >= 0; --i) {
+            setObservations(getObservations() + player.getTypeString() + " "
+                    + player.getId() + " reached level " + (player.getLevel() - i) + "\n");
+        }
+    }
+    /**/
+    public void updateKilledBy(final Player player) {
+        if (player.getKilledBy() != null) {
+            setObservations(getObservations() + "Player " + player.getTypeString() + " "
+                    + player.getId() + " was killed by " + player.getKilledBy().getTypeString()
+                    + " " + player.getKilledBy().getId() + "\n");
+        }
+    }
+    /**/
+    public void updateHelpedBy(final Player player) {
+        if (player.isHelpedBy().equals(AngelType.TheDoomer)) {
+            setObservations(getObservations() + "TheDoomer hit " + player.getTypeString() + " "
+                    + player.getId() + "\n" + "Player " + player.getTypeString()
+                    + " " + player.getId() + " was killed by an angel" + "\n");
+        }
+        if (player.isHelpedBy().equals(AngelType.Spawner)) {
+            setObservations(getObservations() + "Spawner helped " + player.getTypeString() + " "
+                    + player.getId() + "\n" + "Player " + player.getTypeString()
+                    + " " + player.getId() + " was brought to life by an angel" + "\n");
+        }
+        if (player.isHelpedBy().equals(AngelType.DamageAngel)) {
+            setObservations(getObservations() + "DamageAngel helped " + player.getTypeString() + " "
+                    + player.getId() + "\n");
+        }
+        if (player.isHelpedBy().equals(AngelType.Dracula)) {
+            setObservations(getObservations() +  "Dracula hit " + player.getTypeString() + " "
+                    + player.getId() + "\n");
+            if (!player.isAlive()) {
+                setObservations(getObservations() + "Player " + player.getTypeString()
+                        + " " + player.getId() + " was killed by an angel" + "\n");
             }
         }
-//        else {
-//            setUpdatedPlayer("Player " + player.getTypeString() + " "
-//                    + player.getId() + " was killed by " + player.getKilledBy().getTypeString() + " "
-//                    + player.getKilledBy().getId());
-//        }
+        if (player.isHelpedBy().equals(AngelType.XPAngel)) {
+            setObservations(getObservations() +  "XPAngel helped " + player.getTypeString() + " "
+                    + player.getId() + "\n");
+        }
+        if (player.isHelpedBy().equals(AngelType.SmallAngel)) {
+            setObservations(getObservations() + "SmallAngel helped " + player.getTypeString() + " "
+                    + player.getId() + "\n");
+        }
+        if (player.isHelpedBy().equals(AngelType.GoodBoy)) {
+            setObservations(getObservations() + "GoodBoy helped " + player.getTypeString() + " "
+                    + player.getId() + "\n");
+        }
+        if (player.isHelpedBy().equals(AngelType.LifeGiver)) {
+            setObservations(getObservations() + "LifeGiver helped " + player.getTypeString() + " "
+                    + player.getId() + "\n");
+        }
+        if (player.isHelpedBy().equals(AngelType.LevelUpAngel)) {
+            setObservations(getObservations() + "LevelUpAngel helped "
+                    + player.getTypeString() + " " + player.getId() + "\n");
+        }
+        if (player.isHelpedBy().equals(AngelType.DarkAngel)) {
+            setObservations(getObservations() + "DarkAngel hit "
+                    + player.getTypeString() + " " + player.getId() + "\n");
+        }
     }
-
     /**/
     @Override
     public void update(final Angel angel) {
-        setUpdatedAngel("Angel " + angel.getAngelType() + " was spawned at "
-                + angel.getxCoordinate() + " " + angel.getyCoordinate());
+        setObservations(getObservations() + "Angel " + angel.getAngelType() + " was spawned at "
+                + angel.getxCoordinate() + " " + angel.getyCoordinate() + "\n");
     }
 }

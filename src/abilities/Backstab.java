@@ -40,37 +40,36 @@ public class Backstab extends Ability {
     }
     /**/
     public void interactWith(final Knight player) {
-        setRaceModifier(RaceMultiplier.ROGUE_ON_KNIGHT_BACKSTAB);
+        setRaceModifier(RaceMultiplier.ROGUE_ON_KNIGHT_BACKSTAB + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier() * getCritical());
+                * getRaceModifier() * getLandModifier() * getCritical() - 0.00001f);
 
         player.setRecievedDamage(damageGiven);
     }
     /**/
     public void interactWith(final Pyromancer player) {
-        setRaceModifier(RaceMultiplier.ROGUE_ON_PYROMANCER_BACKSTAB);
+        setRaceModifier(RaceMultiplier.ROGUE_ON_PYROMANCER_BACKSTAB + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier() * getCritical());
+                * getRaceModifier() * getLandModifier() * getCritical() - 0.00001f);
 
         player.setRecievedDamage(damageGiven);
     }
     /**/
     public void interactWith(final Wizard player) {
-        setRaceModifier(RaceMultiplier.ROGUE_ON_WIZARD_BACKSTAB);
+        setRaceModifier(RaceMultiplier.ROGUE_ON_WIZARD_BACKSTAB + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
-                + PyromancerConstants.FIREBLAST_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier() * getCritical());
+                + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
+                * getRaceModifier() * getLandModifier() * getCritical() - 0.00001f);
         player.setRecievedDamage(damageGiven);
     }
     /**/
     public void interactWith(final Rogue player) {
-        setRaceModifier(RaceMultiplier.ROGUE_ON_ROGUE_BACKSTAB);
+        setRaceModifier(RaceMultiplier.ROGUE_ON_ROGUE_BACKSTAB + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
-                + PyromancerConstants.FIREBLAST_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier() * getCritical());
-
+                + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
+                * getRaceModifier() * getLandModifier() * getCritical() - 0.00001f);
         player.setRecievedDamage(damageGiven);
     }
 }

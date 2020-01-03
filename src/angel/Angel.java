@@ -50,21 +50,17 @@ public class Angel implements Visitor {
 
     @Override
     public void interactWith(final Knight knight) {
-        Magician.getInstance().update(knight);
     }
 
     @Override
     public void interactWith(final Pyromancer pyromancer) {
-        Magician.getInstance().update(pyromancer);
     }
 
     @Override
     public void interactWith(final Wizard wizard) {
-        Magician.getInstance().update(wizard);
     }
 
     @Override
     public void interactWith(final Rogue rogue) {
-        Magician.getInstance().update(rogue);
     }
 }

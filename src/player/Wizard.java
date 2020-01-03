@@ -26,13 +26,34 @@ public class Wizard extends Player {
     }
     /**/
     public void fightPlayer(final Player player) {
+        this.setBruteDamage(player.getBruteDamage());
         Drain drain = (Drain) getAbilityFactory().getAbilityType(AbilityType.drain, player);
+        drain.setStrategyMultiplyer(getStrategyMultiplyer());
+        drain.setHelperModifier(getHelperMultiplyer());
+        //System.out.println("DRAIN "+ drain.getStrategyMultiplyer() + " " + drain.getHelperModifier());
         player.accept(drain);
         player.recieveDamage();
+        System.out.println(player.toString() + " drain " + player.getRecievedDamage());
         Deflect deflect = (Deflect) getAbilityFactory().getAbilityType(AbilityType.deflect, player);
+        deflect.setStrategyMultiplyer(getStrategyMultiplyer());
+        deflect.setHelperModifier(getHelperMultiplyer());
         player.accept(deflect);
         player.recieveDamage();
-        this.setBruteDamage(player.getBruteDamage());
+        System.out.println(player.toString() + " deflect " + player.getRecievedDamage());
         super.fightPlayer(player);
+    }
+    /**/
+    public void setStrategy() {
+        if (getMaxHp() / WizardConstants.OFFENSE_MIN_HP_MULTIPLYER < getHp()
+                && getHp() < getMaxHp() / WizardConstants.OFFENSE_MAX_HP_MULTIPLYER) {
+            setHp(getHp() - getHp() / WizardConstants.OFFENSE_HP_MULTIPLYER);
+            setStrategyMultiplyer(WizardConstants.OFFENSE_DAMAGE_MULTIPLYER);
+        } else {
+            if (getHp() < getMaxHp() / WizardConstants.DEFENSE_MAX_HP_MULTIPLYER) {
+                setHp(getHp() + getHp() / WizardConstants.DEFENSE_HP_MULTIPLYER);
+                setStrategyMultiplyer(WizardConstants.DEFENSE_DAMAGE_MULTIPLYER);
+                System.out.println("AAAAAAAAAA");
+            }
+        }
     }
 }

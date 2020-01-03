@@ -183,15 +183,7 @@ public abstract class Player implements Visitable {
     }
     /**/
     public void respawned() {
-        setHp(0);
         isAlive = true;
-    }
-    /**/
-    public void doomed() {
-        setHelpedBy(AngelType.TheDoomer);
-        Magician.getInstance().update(this);
-        setHp(-1);
-        isAlive = false;
     }
     /**/
     public Float getRaceBonus() {
@@ -332,13 +324,28 @@ public abstract class Player implements Visitable {
             }
             /* Se adauga Xp celui care isi omoara adversarul
             * Este astfel acoperit si cazul mortii simultane*/
-            if (!this.isAlive()) {
-                attacked.addKilledXp(this);
-                this.setKilledBy(attacked);
-            }
-            if (!attacked.isAlive()) {
-                this.addKilledXp(attacked);
+            if (!attacked.isAlive && !this.isAlive) {
                 attacked.setKilledBy(this);
+                this.setKilledBy(attacked);
+                Magician.getInstance().update(attacked);
+                Magician.getInstance().update(this);
+            } else {
+                if (!attacked.isAlive()) {
+                    this.addKilledXp(attacked);
+                    attacked.setKilledBy(this);
+                    Magician.getInstance().update(attacked);
+                    Magician.getInstance().update(this);
+                } else {
+                    if (!this.isAlive()) {
+                        attacked.addKilledXp(this);
+                        this.setKilledBy(attacked);
+                        Magician.getInstance().update(this);
+                        Magician.getInstance().update(attacked);
+                    } else {
+                        Magician.getInstance().update(this);
+                        Magician.getInstance().update(attacked);
+                    }
+                }
             }
         }
     }
@@ -398,19 +405,22 @@ public abstract class Player implements Visitable {
     }
     /**/
     public void levelUp() {
-        int oldLevel = getLevel();
-        int newLevel = (getXp() - PlayerConstants.XP_LEVEL_UP_BASE)
-                / PlayerConstants.XP_LEVEL_UP_MULTIPLYER + 1;
-        if (newLevel != oldLevel && newLevel > 0) {
-            setLevel(newLevel);
+        if (this.helpedBy != AngelType.LevelUpAngel) {
+            int oldLevel = getLevel();
+            int newLevel = (getXp() - PlayerConstants.XP_LEVEL_UP_BASE);
+            if (newLevel >= 0) {
+                newLevel = newLevel / PlayerConstants.XP_LEVEL_UP_MULTIPLYER + 1;
+                if (newLevel != oldLevel) {
+                    setLevel(newLevel);
+                    setHp(getMaxHp());
+                }
+            }
+        } else {
+            setXp(PlayerConstants.XP_LEVEL_UP_BASE + getLevel()
+                    * PlayerConstants.XP_LEVEL_UP_MULTIPLYER);
+            setLevel(getLevel() + 1);
             setHp(getMaxHp());
         }
-    }
-    /**/
-    public void setLevelAngel() {
-        setXp(PlayerConstants.XP_LEVEL_UP_BASE + getLevel() * PlayerConstants.XP_LEVEL_UP_MULTIPLYER);
-        setLevel(getLevel() + 1);
-        setHp(getMaxHp());
     }
     /**/
     public String alive() {
@@ -445,7 +455,6 @@ public abstract class Player implements Visitable {
     /**/
     public void getHelp(final Angel angel) {
         if (canBeHelped(angel)) {
-            //System.out.println(angel.toString() + " helped " + this.toString());
             this.accept(angel);
         }
     }

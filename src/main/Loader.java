@@ -78,6 +78,10 @@ public class Loader {
                 dummy.setStartingPosition(initialXCoordinate, initialYCoordinate);
                 dummy.setId(i);
                 players.add(dummy);
+                Player observed = playerFactory.getPlayerType(checkPlayer(pType));
+                observed.setStartingPosition(initialXCoordinate, initialYCoordinate);
+                observed.setId(i);
+                Magician.getInstance().getObserved().add(observed);
             }
 
             noRounds = fs.nextInt();
@@ -88,7 +92,6 @@ public class Loader {
                     players.get(j).addMove(move.charAt(j));
                 }
             }
-
             for (int i = 0; i < noRounds; ++i) {
                 noAngels = fs.nextInt();
                 List<Angel> angelsToAdd = new ArrayList<>();
@@ -110,20 +113,11 @@ public class Loader {
                     angels.add(null);
                 }
             }
-
-//            for (int i = 0; i < angels.size(); ++i) {
-//                if (angels.get(i) != null) {
-//                    System.out.println("Round " + i + " " + angels.get(i).toString());
-//                } else {
-//                    System.out.println("Round " + i + " null");
-//                }
-//            }
             fs.close();
 
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-
         return new Input(players, noRounds, angels);
     }
 

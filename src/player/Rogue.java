@@ -34,12 +34,14 @@ public class Rogue extends Player {
         backstab.setHelperModifier(getHelperMultiplyer());
         player.accept(backstab);
         player.recieveDamage();
+        System.out.println(player.toString() + " backstab " + player.getRecievedDamage());
         Paralysis paralysis = (Paralysis) getAbilityFactory()
                 .getAbilityType(AbilityType.paralysis, player);
         paralysis.setStrategyMultiplyer(getStrategyMultiplyer());
         paralysis.setHelperModifier(getHelperMultiplyer());
         player.accept(paralysis);
         player.recieveDamage();
+        System.out.println(player.toString() + " paralysis " + player.getRecievedDamage());
         this.setBruteDamage(player.getBruteDamage());
         super.fightPlayer(player);
     }
