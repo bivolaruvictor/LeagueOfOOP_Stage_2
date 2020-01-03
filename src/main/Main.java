@@ -17,9 +17,13 @@ public final class Main {
         Input input = loader.load();
         try {
             FileSystem fs = new FileSystem(args[0], args[1]);
+            for (Player player : input.getPlayers()) {
+                System.out.println(player.getTypeString() + player.getId() + " " + player.getMoves().toString());
+            }
             for (int k = 0; k < input.getNumberOfRounds(); ++k) {
                 fs.writeWord("~~ Round " + (k + 1) + " ~~");
                 fs.writeNewLine();
+                System.out.println("Round " + k);
                 for (Player player : input.getPlayers()) {
                     player.recieveOvertimeDamage();
                     if (player.getHp() <= 0) {
@@ -28,10 +32,10 @@ public final class Main {
                     if (player.getBlock() == 0) {
                         player.setStrategy();
                     }
+                    player.setRound(k);
                     if (player.isAlive()) {
                         player.movePlayer();
                     }
-                    player.setRound(k);
                     player.setHelpedBy(null);
                     System.out.println(player.typeToString() + " " + player.getId() + " " + player.getHp());
                 }

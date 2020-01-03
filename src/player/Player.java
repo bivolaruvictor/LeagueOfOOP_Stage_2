@@ -386,6 +386,7 @@ public abstract class Player implements Visitable {
         } else {
             setBlock(getBlock() - 1);
         }
+        System.out.println("Round " + getRound() + " " + getTypeString() + getId() + " moved " + getMoves().get(getRound()));
     }
     /**/
     public void recieveDamage() {

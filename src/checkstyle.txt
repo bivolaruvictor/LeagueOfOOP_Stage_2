@@ -55,9 +55,11 @@ Starting audit...
 [ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/angel/LevelUpAngel.java:35: Line is longer than 100 characters (found 114). [LineLength]
 [ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/angel/LevelUpAngel.java:43: Line is longer than 100 characters (found 111). [LineLength]
 [ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/angel/LifeGiver.java:27: Line is longer than 100 characters (found 106). [LineLength]
-[ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/main/Main.java:36: Line is longer than 100 characters (found 108). [LineLength]
-[ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/main/Main.java:65: Line is longer than 100 characters (found 122). [LineLength]
+[ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/main/Main.java:21: Line is longer than 100 characters (found 113). [LineLength]
+[ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/main/Main.java:40: Line is longer than 100 characters (found 108). [LineLength]
+[ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/main/Main.java:69: Line is longer than 100 characters (found 122). [LineLength]
 [ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/player/Player.java:177:5: Class 'Player' looks like designed for extension (can be subclassed), but the method 'isDead' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'Player' final or making the method 'isDead' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
+[ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/player/Player.java:389: Line is longer than 100 characters (found 125). [LineLength]
 [ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/player/Wizard.java:33: Line is longer than 100 characters (found 104). [LineLength]
 Audit done.
-Checkstyle ends with 60 errors.
+Checkstyle ends with 62 errors.

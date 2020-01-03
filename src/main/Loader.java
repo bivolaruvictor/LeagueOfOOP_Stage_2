@@ -102,8 +102,14 @@ public class Loader {
                         aType = result[0];
                         String x = result[1];
                         String y = result[2];
-                        angelXCoordinate = x.charAt(0) - '0';
-                        angelYCoordinate = y.charAt(0) - '0';
+                        angelXCoordinate = 0;
+                        angelYCoordinate = 0;
+                        for (int m = 0; m < x.length(); ++m) {
+                            angelXCoordinate = angelXCoordinate * 10 + (x.charAt(m) - '0');
+                        }
+                        for (int n = 0; n < y.length(); ++n) {
+                            angelYCoordinate = angelYCoordinate * 10 + (y.charAt(n) - '0');
+                        }
                         Angel dummy = angelFactory.getAngelType(checkAngel(aType));
                         dummy.setPosition(angelXCoordinate, angelYCoordinate);
                         angelsToAdd.add(dummy);
