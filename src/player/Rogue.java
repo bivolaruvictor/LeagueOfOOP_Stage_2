@@ -61,7 +61,7 @@ public class Rogue extends Player {
         } else {
             if (getHp() < getMaxHp() / RogueConstants.DEFENSE_MAX_HP_MULTIPLYER) {
                 setHp(Math.round(getHp()
-                        - Math.round(getHp() / RogueConstants.DEFENSE_HP_MULTIPLYER)));
+                        + Math.round(getHp() / RogueConstants.DEFENSE_HP_MULTIPLYER)));
                 setStrategyMultiplyer(getStrategyMultiplyer()
                         + RogueConstants.DEFENSE_DAMAGE_MULTIPLYER);
             }

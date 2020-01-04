@@ -60,7 +60,7 @@ public class Knight extends Player {
         } else {
             if (getHp() < getMaxHp() / KnightConstants.DEFENSE_MAX_HP_MULTIPLYER) {
                 setHp(Math.round(getHp()
-                        - Math.round(getHp() / KnightConstants.DEFENSE_HP_MULTIPLYER)));
+                        + Math.round(getHp() / KnightConstants.DEFENSE_HP_MULTIPLYER)));
                 setStrategyMultiplyer(getStrategyMultiplyer()
                         + KnightConstants.DEFENSE_DAMAGE_MULTIPLYER);
             }

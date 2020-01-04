@@ -58,7 +58,7 @@ public class Pyromancer extends Player {
         } else {
             if (getHp() < getMaxHp() / PyromancerConstants.DEFENSE_MAX_HP_MULTIPLYER) {
                 setHp(Math.round(getHp()
-                        - Math.round(getHp() / PyromancerConstants.DEFENSE_HP_MULTIPLYER)));
+                        + Math.round(getHp() / PyromancerConstants.DEFENSE_HP_MULTIPLYER)));
                 setStrategyMultiplyer(getStrategyMultiplyer()
                         + PyromancerConstants.DEFENSE_DAMAGE_MULTIPLYER);
             }

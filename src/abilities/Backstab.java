@@ -53,20 +53,21 @@ public class Backstab extends Ability {
     public void interactWith(final Pyromancer player) {
         setRaceModifier(RaceMultiplier.ROGUE_ON_PYROMANCER_BACKSTAB
                 + getStrategyMultiplyer() + getHelperModifier());
+
         int damageGiven = Math.round((getBaseDamage()
                 + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier() * getCritical()
                 - GameConstants.MAGIC_NUMBER);
-
+        System.out.println(damageGiven);
         player.setRecievedDamage(damageGiven);
     }
     /**/
     public void interactWith(final Wizard player) {
         setRaceModifier(RaceMultiplier.ROGUE_ON_WIZARD_BACKSTAB
                 + getStrategyMultiplyer() + getHelperModifier());
-        int damageGiven = Math.round((getBaseDamage()
+        int damageGiven = Math.round(((getBaseDamage()
                 + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier() * getCritical()
+                * getRaceModifier() * getLandModifier() * getCritical())
                 - GameConstants.MAGIC_NUMBER);
         player.setRecievedDamage(damageGiven);
     }

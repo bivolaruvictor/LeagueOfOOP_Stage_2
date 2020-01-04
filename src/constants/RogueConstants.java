@@ -21,9 +21,9 @@ public final class RogueConstants {
     public static final int OFFENSE_MIN_HP_MULTIPLYER = 7;
     public static final int OFFENSE_MAX_HP_MULTIPLYER = 5;
     public static final int OFFENSE_HP_MULTIPLYER = 7;
-    public static final float OFFENSE_DAMAGE_MULTIPLYER = 1.4f;
+    public static final float OFFENSE_DAMAGE_MULTIPLYER = 0.4f;
 
     public static final int DEFENSE_MAX_HP_MULTIPLYER = 7;
     public static final int DEFENSE_HP_MULTIPLYER = 2;
-    public static final float DEFENSE_DAMAGE_MULTIPLYER = 0.9f;
+    public static final float DEFENSE_DAMAGE_MULTIPLYER = -0.1f;
 }

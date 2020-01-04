@@ -1,5 +1,6 @@
 package abilities;
 
+import constants.GameConstants;
 import constants.LandMultipliers;
 import constants.PyromancerConstants;
 import constants.RaceMultiplier;
@@ -18,8 +19,7 @@ public class Fireblast extends Ability {
         setCasterLevel(player.getCasterLevel());
         if (getGameMap().getMap().get(player.getxCoordinate()).
                 get(player.getyCoordinate()).getTerrainType().equals(TerrainType.volcanic)) {
-            setLandModifier(LandMultipliers.VOLCANIC_MULTIPLIER
-                    + getStrategyMultiplyer() + getHelperModifier());
+            setLandModifier(LandMultipliers.VOLCANIC_MULTIPLIER);
         }
         player.setBruteDamage(Math.round((getBaseDamage()
                 + PyromancerConstants.FIREBLAST_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
@@ -29,9 +29,9 @@ public class Fireblast extends Ability {
     public void interactWith(final Knight player) {
         setRaceModifier(RaceMultiplier.PYROMANCER_ON_KNIGHT_FIREBLAST
                 + getStrategyMultiplyer() + getHelperModifier());
-        int damageGiven = Math.round((getBaseDamage()
+        int damageGiven = Math.round(Math.round((getBaseDamage()
                 + PyromancerConstants.FIREBLAST_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier());
+                * getLandModifier()) * getRaceModifier());
 
         player.setRecievedDamage(damageGiven);
     }
@@ -62,7 +62,6 @@ public class Fireblast extends Ability {
         int damageGiven = Math.round((getBaseDamage()
                 + PyromancerConstants.FIREBLAST_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
-
         player.setRecievedDamage(damageGiven);
     }
 }

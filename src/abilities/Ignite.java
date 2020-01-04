@@ -29,13 +29,13 @@ public class Ignite extends Ability {
     public void interactWith(final Knight player) {
         setRaceModifier(RaceMultiplier.PYROMANCER_ON_KNIGHT_IGNITE
                 + getStrategyMultiplyer() + getHelperModifier());
-        int damageGiven = Math.round((getBaseDamage()
+        int damageGiven = Math.round(Math.round((getBaseDamage()
                 + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier());
+                * getLandModifier()) * getRaceModifier());
         player.setRecievedDamage(damageGiven);
-        int secondaryDamage = Math.round((PyromancerConstants.IGNITE_SECONDARY_STARTING_DAMAGE
-                + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier());
+        int secondaryDamage = Math.round(Math.round((PyromancerConstants.IGNITE_SECONDARY_STARTING_DAMAGE
+                + PyromancerConstants.IGNITE_SECONDARY_DAMAGE_PER_LEVEL * getCasterLevel())
+                * getLandModifier()) * getRaceModifier());
 
         player.setOvertimeDamage(secondaryDamage);
         player.setOvertimeRounds(PyromancerConstants.ROUNDS_OF_IGNITE_SECONDARY_DAMAGE);
@@ -51,7 +51,7 @@ public class Ignite extends Ability {
         player.setRecievedDamage(damageGiven);
 
         int secondaryDamage = Math.round((PyromancerConstants.IGNITE_SECONDARY_STARTING_DAMAGE
-                + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
+                + PyromancerConstants.IGNITE_SECONDARY_DAMAGE_PER_LEVEL * getCasterLevel())
                 * getLandModifier() * getRaceModifier());
 
         player.setOvertimeDamage(secondaryDamage);
@@ -68,7 +68,7 @@ public class Ignite extends Ability {
         player.setRecievedDamage(damageGiven);
 
         int secondaryDamage = Math.round((PyromancerConstants.IGNITE_SECONDARY_STARTING_DAMAGE
-                + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
+                + PyromancerConstants.IGNITE_SECONDARY_DAMAGE_PER_LEVEL * getCasterLevel())
                 * getLandModifier() * getRaceModifier());
 
         player.setOvertimeDamage(secondaryDamage);
@@ -85,7 +85,7 @@ public class Ignite extends Ability {
         player.setRecievedDamage(damageGiven);
 
         int secondaryDamage = Math.round((PyromancerConstants.IGNITE_SECONDARY_STARTING_DAMAGE
-                + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
+                + PyromancerConstants.IGNITE_SECONDARY_DAMAGE_PER_LEVEL * getCasterLevel())
                 * getLandModifier() * getRaceModifier());
 
         player.setOvertimeDamage(secondaryDamage);
