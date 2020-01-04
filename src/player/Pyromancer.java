@@ -26,6 +26,7 @@ public class Pyromancer extends Player {
     }
     /**/
     public void fightPlayer(final Player player) {
+        player.setCasterLevel(getLevel());
         Fireblast fireblast = (Fireblast) getAbilityFactory()
                 .getAbilityType(AbilityType.fireblast, player);
         fireblast.setStrategyMultiplyer(getStrategyMultiplyer());
@@ -50,14 +51,16 @@ public class Pyromancer extends Player {
     public void setStrategy() {
         if (getMaxHp() / PyromancerConstants.OFFENSE_MIN_HP_MULTIPLYER < getHp()
                 && getHp() < getMaxHp() / PyromancerConstants.OFFENSE_MAX_HP_MULTIPLYER) {
-            setHp(getHp() - getHp() / PyromancerConstants.OFFENSE_HP_MULTIPLYER);
-            setStrategyMultiplyer(PyromancerConstants.OFFENSE_DAMAGE_MULTIPLYER);
+            setHp(Math.round(getHp()
+                    - Math.round(getHp() / PyromancerConstants.OFFENSE_HP_MULTIPLYER)));
+            setStrategyMultiplyer(getStrategyMultiplyer()
+                    + PyromancerConstants.OFFENSE_DAMAGE_MULTIPLYER);
         } else {
             if (getHp() < getMaxHp() / PyromancerConstants.DEFENSE_MAX_HP_MULTIPLYER) {
-                setHp(getHp() + getHp() / PyromancerConstants.DEFENSE_HP_MULTIPLYER);
-                setStrategyMultiplyer(PyromancerConstants.DEFENSE_DAMAGE_MULTIPLYER);
-            } else {
-                setStrategyMultiplyer(0f);
+                setHp(Math.round(getHp()
+                        - Math.round(getHp() / PyromancerConstants.DEFENSE_HP_MULTIPLYER)));
+                setStrategyMultiplyer(getStrategyMultiplyer()
+                        + PyromancerConstants.DEFENSE_DAMAGE_MULTIPLYER);
             }
         }
     }

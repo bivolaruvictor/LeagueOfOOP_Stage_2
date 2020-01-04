@@ -2,6 +2,7 @@ package main;
 import angel.Angel;
 import angel.AngelFactory;
 import angel.AngelType;
+import constants.GameConstants;
 import fileio.FileSystem;
 import magician.Magician;
 import player.Player;
@@ -105,10 +106,12 @@ public class Loader {
                         angelXCoordinate = 0;
                         angelYCoordinate = 0;
                         for (int m = 0; m < x.length(); ++m) {
-                            angelXCoordinate = angelXCoordinate * 10 + (x.charAt(m) - '0');
+                            angelXCoordinate = angelXCoordinate
+                                    * GameConstants.DECIMAL_BASE + (x.charAt(m) - '0');
                         }
                         for (int n = 0; n < y.length(); ++n) {
-                            angelYCoordinate = angelYCoordinate * 10 + (y.charAt(n) - '0');
+                            angelYCoordinate = angelYCoordinate
+                                    * GameConstants.DECIMAL_BASE + (y.charAt(n) - '0');
                         }
                         Angel dummy = angelFactory.getAngelType(checkAngel(aType));
                         dummy.setPosition(angelXCoordinate, angelYCoordinate);

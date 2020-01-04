@@ -16,12 +16,12 @@ public final class WizardConstants {
     public static final float DEFLECT_MAXIMUM_PERCENTAGE = 0.7f;
 
     /*Stage 2*/
-    public static final int OFFENSE_MIN_HP_MULTIPLYER = 4;
-    public static final int OFFENSE_MAX_HP_MULTIPLYER = 2;
-    public static final int OFFENSE_HP_MULTIPLYER = 10;
+    public static final float OFFENSE_MIN_HP_MULTIPLYER = 4f;
+    public static final float OFFENSE_MAX_HP_MULTIPLYER = 2f;
+    public static final float OFFENSE_HP_MULTIPLYER = 10f;
     public static final float OFFENSE_DAMAGE_MULTIPLYER = 0.6f;
 
-    public static final int DEFENSE_MAX_HP_MULTIPLYER = 4;
-    public static final int DEFENSE_HP_MULTIPLYER = 5;
+    public static final float DEFENSE_MAX_HP_MULTIPLYER = 4f;
+    public static final float DEFENSE_HP_MULTIPLYER = 5f;
     public static final float DEFENSE_DAMAGE_MULTIPLYER = -0.2f;
 }

@@ -28,6 +28,7 @@ public class Knight extends Player {
     /**/
     @Override
     public void fightPlayer(final Player player) {
+        player.setCasterLevel(getLevel());
         Execute execute = (Execute) getAbilityFactory().getAbilityType(AbilityType.execute, player);
         execute.setStrategyMultiplyer(getStrategyMultiplyer());
         execute.setHelperModifier(getHelperMultiplyer());
@@ -52,14 +53,16 @@ public class Knight extends Player {
     public void setStrategy() {
         if (getMaxHp() / KnightConstants.OFFENSE_MIN_HP_MULTIPLYER < getHp()
                 && getHp() < getMaxHp() / KnightConstants.OFFENSE_MAX_HP_MULTIPLYER) {
-            setHp(getHp() - getHp() / KnightConstants.OFFENSE_HP_MULTIPLYER);
-            setStrategyMultiplyer(KnightConstants.OFFENSE_DAMAGE_MULTIPLYER);
+            setHp(Math.round(getHp()
+                    - Math.round(getHp() / KnightConstants.OFFENSE_HP_MULTIPLYER)));
+            setStrategyMultiplyer(getStrategyMultiplyer()
+                    + KnightConstants.OFFENSE_DAMAGE_MULTIPLYER);
         } else {
             if (getHp() < getMaxHp() / KnightConstants.DEFENSE_MAX_HP_MULTIPLYER) {
-                setHp(getHp() + getHp() / KnightConstants.DEFENSE_HP_MULTIPLYER);
-                setStrategyMultiplyer(KnightConstants.DEFENSE_DAMAGE_MULTIPLYER);
-            } else {
-                setStrategyMultiplyer(0f);
+                setHp(Math.round(getHp()
+                        - Math.round(getHp() / KnightConstants.DEFENSE_HP_MULTIPLYER)));
+                setStrategyMultiplyer(getStrategyMultiplyer()
+                        + KnightConstants.DEFENSE_DAMAGE_MULTIPLYER);
             }
         }
     }

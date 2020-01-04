@@ -39,6 +39,7 @@ public abstract class Player implements Visitable {
     private AngelType helpedBy;
     private Player killedBy;
     private boolean showedKilled;
+    private int casterLevel;
     Player() {
         round = 0;
         xp = 0;
@@ -58,7 +59,17 @@ public abstract class Player implements Visitable {
         helpedBy = null;
         killedBy = null;
         showedKilled = false;
+        casterLevel = 0;
     }
+    /**/
+    public int getCasterLevel() {
+        return casterLevel;
+    }
+    /**/
+    public void setCasterLevel(final int casterLevel) {
+        this.casterLevel = casterLevel;
+    }
+
     /**/
     public boolean isShowedKilled() {
         return showedKilled;
@@ -348,6 +359,8 @@ public abstract class Player implements Visitable {
                 }
             }
         }
+        setCasterLevel(0);
+        attacked.setCasterLevel(0);
     }
     /**/
     public void fightPlayer(final Player player) {
@@ -456,18 +469,23 @@ public abstract class Player implements Visitable {
     public void getHelp(final Angel angel) {
         if (canBeHelped(angel)) {
             this.accept(angel);
-            if (this.isHelpedBy() != null) {
-                System.out.println(this.typeToString() + " " + this.getId() + " "
-                        + " Level: " + this.getLevel() + " Hp: "
-                        + this.getHp() + " Helped by: " + this.isHelpedBy().name()
-                        + " Strategy: " +  this.getStrategyMultiplyer()
-                        + " Helper: " + this.getHelperMultiplyer());
+            if (isAlive) {
+                if (this.isHelpedBy() != null) {
+                    System.out.println(this.typeToString() + " " + this.getId() + " "
+                            + " Level: " + this.getLevel() + " Hp: "
+                            + this.getHp() + " Helped by: " + this.isHelpedBy().name()
+                            + " Strategy: " +  this.getStrategyMultiplyer()
+                            + " Helper: " + this.getHelperMultiplyer());
+                } else {
+                    System.out.println(this.typeToString() + " " + this.getId() + " "
+                            + " Level: " + this.getLevel() + " Hp: "
+                            + this.getHp() + " Got No Help "
+                            + " Strategy: " +  this.getStrategyMultiplyer()
+                            + " Helper: " + this.getHelperMultiplyer());
+                }
             } else {
                 System.out.println(this.typeToString() + " " + this.getId() + " "
-                        + " Level: " + this.getLevel() + " Hp: "
-                        + this.getHp() + " Got No Help "
-                        + " Strategy: " +  this.getStrategyMultiplyer()
-                        + " Helper: " + this.getHelperMultiplyer());
+                        + " dead");
             }
         }
     }

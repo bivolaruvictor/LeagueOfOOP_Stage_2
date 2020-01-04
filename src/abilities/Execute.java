@@ -15,7 +15,7 @@ public class Execute extends Ability {
         super(player);
         setAbilityType(AbilityType.execute);
         setBaseDamage(KnightConstants.EXECUTE_STARTING_DAMAGE);
-        setCasterLevel(player.getLevel());
+        setCasterLevel(player.getCasterLevel());
         if (getGameMap().getMap().get(player.getxCoordinate()).
                 get(player.getyCoordinate()).getTerrainType().equals(TerrainType.land)) {
             setLandModifier(LandMultipliers.LAND_MULTIPLIER);
@@ -44,7 +44,8 @@ public class Execute extends Ability {
     }
     /**/
     public void interactWith(final Pyromancer player) {
-        setRaceModifier(RaceMultiplier.KNIGHT_ON_PYROMANCER_EXECUTE+ getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.KNIGHT_ON_PYROMANCER_EXECUTE
+                + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.EXECUTE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -56,7 +57,11 @@ public class Execute extends Ability {
     }
     /**/
     public void interactWith(final Wizard player) {
-        setRaceModifier(RaceMultiplier.KNIGHT_ON_WIZARD_EXECUTE+ getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.KNIGHT_ON_WIZARD_EXECUTE
+                + getStrategyMultiplyer() + getHelperModifier());
+        System.out.println(getRaceModifier());
+        System.out.println((getBaseDamage()
+                + KnightConstants.EXECUTE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel()));
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.EXECUTE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());
@@ -68,7 +73,8 @@ public class Execute extends Ability {
     }
     /**/
     public void interactWith(final Rogue player) {
-        setRaceModifier(RaceMultiplier.KNIGHT_ON_ROGUE_EXECUTE + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.KNIGHT_ON_ROGUE_EXECUTE
+                + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.EXECUTE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());

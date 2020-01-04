@@ -1,7 +1,7 @@
 package abilities;
 
+import constants.GameConstants;
 import constants.LandMultipliers;
-import constants.PyromancerConstants;
 import constants.RaceMultiplier;
 import constants.RogueConstants;
 import player.Knight;
@@ -17,7 +17,7 @@ public class Backstab extends Ability {
         super(player);
         setAbilityType(AbilityType.backstab);
         setBaseDamage(RogueConstants.BACKSTAB_STARTING_DAMAGE);
-        setCasterLevel(player.getLevel());
+        setCasterLevel(player.getCasterLevel());
         critical = 1.0f;
         if (getGameMap().getMap().get(player.getxCoordinate()).
                 get(player.getyCoordinate()).getTerrainType().equals(TerrainType.woods)) {
@@ -40,36 +40,44 @@ public class Backstab extends Ability {
     }
     /**/
     public void interactWith(final Knight player) {
-        setRaceModifier(RaceMultiplier.ROGUE_ON_KNIGHT_BACKSTAB + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.ROGUE_ON_KNIGHT_BACKSTAB
+                + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier() * getCritical() - 0.00001f);
+                * getRaceModifier() * getLandModifier() * getCritical()
+                - GameConstants.MAGIC_NUMBER);
 
         player.setRecievedDamage(damageGiven);
     }
     /**/
     public void interactWith(final Pyromancer player) {
-        setRaceModifier(RaceMultiplier.ROGUE_ON_PYROMANCER_BACKSTAB + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.ROGUE_ON_PYROMANCER_BACKSTAB
+                + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier() * getCritical() - 0.00001f);
+                * getRaceModifier() * getLandModifier() * getCritical()
+                - GameConstants.MAGIC_NUMBER);
 
         player.setRecievedDamage(damageGiven);
     }
     /**/
     public void interactWith(final Wizard player) {
-        setRaceModifier(RaceMultiplier.ROGUE_ON_WIZARD_BACKSTAB + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.ROGUE_ON_WIZARD_BACKSTAB
+                + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier() * getCritical() - 0.00001f);
+                * getRaceModifier() * getLandModifier() * getCritical()
+                - GameConstants.MAGIC_NUMBER);
         player.setRecievedDamage(damageGiven);
     }
     /**/
     public void interactWith(final Rogue player) {
-        setRaceModifier(RaceMultiplier.ROGUE_ON_ROGUE_BACKSTAB + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.ROGUE_ON_ROGUE_BACKSTAB
+                + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round((getBaseDamage()
                 + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
-                * getRaceModifier() * getLandModifier() * getCritical() - 0.00001f);
+                * getRaceModifier() * getLandModifier() * getCritical()
+                - GameConstants.MAGIC_NUMBER);
         player.setRecievedDamage(damageGiven);
     }
 }

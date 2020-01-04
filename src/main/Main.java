@@ -21,7 +21,10 @@ public final class Main {
             for (int k = 0; k < input.getNumberOfRounds(); ++k) {
                 fs.writeWord("~~ Round " + (k + 1) + " ~~");
                 fs.writeNewLine();
-                System.out.println("Round " + (k + 1));
+                System.out.println();
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                        + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println("\t \t \t \t \t \t \t Round " + (k + 1));
                 System.out.println();
                 System.out.println("---Initial---");
                 for (Player player : input.getPlayers()) {
@@ -37,10 +40,15 @@ public final class Main {
                         player.movePlayer();
                     }
                     player.setHelpedBy(null);
-                    System.out.println(player.typeToString() + " " + player.getId() + " "
-                            + " Level: " + player.getLevel() + " Hp: "
-                            + player.getHp() + " Strategy: " +  player.getStrategyMultiplyer()
-                            + " Helper: " + player.getHelperMultiplyer());
+                    if (player.isAlive()) {
+                        System.out.println(player.typeToString() + " " + player.getId() + " "
+                                + " Level: " + player.getLevel() + " Hp: "
+                                + player.getHp() + " Strategy: " +  player.getStrategyMultiplyer()
+                                + " Helper: " + player.getHelperMultiplyer());
+                    } else {
+                        System.out.println(player.typeToString() + " " + player.getId() + " "
+                                + " dead");
+                    }
                 }
                 System.out.println();
                 System.out.println("---Fight---");
@@ -51,14 +59,18 @@ public final class Main {
                 }
                 System.out.println();
                 System.out.println("---After Fight---");
-                for (Player player : input.getPlayers()) {
-                    System.out.println(player.typeToString() + " " + player.getId() + " "
-                            + " Level: " + player.getLevel() + " Hp: "
-                            + player.getHp());
-                    Magician.getInstance().update(player);
-                }
+//                for (Player player : input.getPlayers()) {
+//                    if (player.isAlive()) {
+//                        System.out.println(player.typeToString() + " " + player.getId() + " "
+//                                + " Level: " + player.getLevel() + " Hp: "
+//                                + player.getHp());
+//                        Magician.getInstance().update(player);
+//                    } else {
+//                        System.out.println(player.typeToString() + " dead");
+//                        Magician.getInstance().update(player);
+//                    }
+//                }
                 System.out.println();
-                System.out.println("---After Angels---");
                 /*Jucatorii primesc ajutor*/
                 if (input.getAngels().get(k) != null) {
                     for (Angel angel : input.getAngels().get(k)) {
@@ -81,16 +93,33 @@ public final class Main {
                 Magician.getInstance().setObservations("");
                 fs.writeNewLine();
                 System.out.println();
+                System.out.println("---After Angels---");
+                for (Player player: input.getPlayers()) {
+                    if (player.isAlive()) {
+                        System.out.println(player.typeToString() + " " + player.getId() + " "
+                                + " Level: " + player.getLevel() + " Hp: "
+                                + player.getHp() + " Strategy: " + player.getStrategyMultiplyer()
+                                + " Helper: " + player.getHelperMultiplyer());
+                    } else {
+                        System.out.println(player.typeToString() + " " + player.getId() + " "
+                                + " dead");
+                    }
+                }
             }
             fs.writeWord("~~ Results ~~");
             fs.writeNewLine();
             System.out.println();
             System.out.println("Results");
             for (Player player: input.getPlayers()) {
-                System.out.println(player.typeToString() + " " + player.getId() + " "
-                        + " Level: " + player.getLevel() + " Hp: "
-                        + player.getHp() + " Strategy: " +  player.getStrategyMultiplyer()
-                        + " Helper: " + player.getHelperMultiplyer());
+                if (player.isAlive()) {
+                    System.out.println(player.typeToString() + " " + player.getId() + " "
+                            + " Level: " + player.getLevel() + " Hp: "
+                            + player.getHp() + " Strategy: " +  player.getStrategyMultiplyer()
+                            + " Helper: " + player.getHelperMultiplyer());
+                } else {
+                    System.out.println(player.typeToString() + " " + player.getId() + " "
+                            + " dead");
+                }
                 if (player.isAlive()) {
                     fs.writeWord(player.typeToString() + " " + player.getLevel()
                             + " " + player.getXp() + " " + player.getHp() + " "

@@ -24,7 +24,8 @@ public class LifeGiver extends Angel {
     public void interactWith(final Pyromancer pyromancer) {
         pyromancer.setHelpedBy(AngelType.LifeGiver);
         pyromancer.setHp(Math.min(
-                pyromancer.getHp() + LifeGiverConstants.LIFE_GIVER_ON_PYROMANCER, pyromancer.getMaxHp()));
+                pyromancer.getHp()
+                        + LifeGiverConstants.LIFE_GIVER_ON_PYROMANCER, pyromancer.getMaxHp()));
         super.interactWith(pyromancer);
     }
     /**/

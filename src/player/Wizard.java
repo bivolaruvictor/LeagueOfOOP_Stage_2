@@ -26,6 +26,7 @@ public class Wizard extends Player {
     }
     /**/
     public void fightPlayer(final Player player) {
+        player.setCasterLevel(getLevel());
         this.setBruteDamage(player.getBruteDamage());
         Drain drain = (Drain) getAbilityFactory().getAbilityType(AbilityType.drain, player);
         drain.setStrategyMultiplyer(getStrategyMultiplyer());
@@ -48,14 +49,14 @@ public class Wizard extends Player {
     public void setStrategy() {
         if (getMaxHp() / WizardConstants.OFFENSE_MIN_HP_MULTIPLYER < getHp()
                 && getHp() < getMaxHp() / WizardConstants.OFFENSE_MAX_HP_MULTIPLYER) {
-            setHp(getHp() - getHp() / WizardConstants.OFFENSE_HP_MULTIPLYER);
-            setStrategyMultiplyer(WizardConstants.OFFENSE_DAMAGE_MULTIPLYER);
+            setHp(getHp() - (int) (getHp() / WizardConstants.OFFENSE_HP_MULTIPLYER));
+            setStrategyMultiplyer(getStrategyMultiplyer()
+                    + WizardConstants.OFFENSE_DAMAGE_MULTIPLYER);
         } else {
             if (getHp() < getMaxHp() / WizardConstants.DEFENSE_MAX_HP_MULTIPLYER) {
-                setHp(getHp() + getHp() / WizardConstants.DEFENSE_HP_MULTIPLYER);
-                setStrategyMultiplyer(WizardConstants.DEFENSE_DAMAGE_MULTIPLYER);
-            } else {
-                setStrategyMultiplyer(0f);
+                setHp(getHp() + Math.round(getHp() / WizardConstants.DEFENSE_HP_MULTIPLYER));
+                setStrategyMultiplyer(getStrategyMultiplyer()
+                        + WizardConstants.DEFENSE_DAMAGE_MULTIPLYER);
             }
         }
     }

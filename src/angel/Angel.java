@@ -1,8 +1,11 @@
 package angel;
 
 import abilities.Visitor;
-import magician.Magician;
-import player.*;
+
+import player.Rogue;
+import player.Wizard;
+import player.Knight;
+import player.Pyromancer;
 
 public class Angel implements Visitor {
     private AngelType angelType;

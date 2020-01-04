@@ -28,6 +28,7 @@ public class Rogue extends Player {
     /**/
     @Override
     public void fightPlayer(final Player player) {
+        player.setCasterLevel(getLevel());
         Backstab backstab = (Backstab) getAbilityFactory()
                 .getAbilityType(AbilityType.backstab, player);
         backstab.setStrategyMultiplyer(getStrategyMultiplyer());
@@ -35,7 +36,9 @@ public class Rogue extends Player {
         player.accept(backstab);
         player.recieveDamage();
         System.out.println(player.typeToString() + " " + player.getId()
-                + " got backstab " + player.getRecievedDamage());        Paralysis paralysis = (Paralysis) getAbilityFactory()
+                + " got backstab "
+                + player.getRecievedDamage());
+        Paralysis paralysis = (Paralysis) getAbilityFactory()
                 .getAbilityType(AbilityType.paralysis, player);
         paralysis.setStrategyMultiplyer(getStrategyMultiplyer());
         paralysis.setHelperModifier(getHelperMultiplyer());
@@ -52,14 +55,15 @@ public class Rogue extends Player {
     public void setStrategy() {
         if (getMaxHp() / RogueConstants.OFFENSE_MIN_HP_MULTIPLYER < getHp()
                 && getHp() < getMaxHp() / RogueConstants.OFFENSE_MAX_HP_MULTIPLYER) {
-            setHp(getHp() - getHp() / RogueConstants.OFFENSE_HP_MULTIPLYER);
-            setStrategyMultiplyer(RogueConstants.OFFENSE_DAMAGE_MULTIPLYER);
+            setHp(Math.round(getHp() - Math.round(getHp() / RogueConstants.OFFENSE_HP_MULTIPLYER)));
+            setStrategyMultiplyer(getStrategyMultiplyer()
+                    + RogueConstants.OFFENSE_DAMAGE_MULTIPLYER);
         } else {
             if (getHp() < getMaxHp() / RogueConstants.DEFENSE_MAX_HP_MULTIPLYER) {
-                setHp(getHp() + getHp() / RogueConstants.DEFENSE_HP_MULTIPLYER);
-                setStrategyMultiplyer(RogueConstants.DEFENSE_DAMAGE_MULTIPLYER);
-            } else {
-                setStrategyMultiplyer(0f);
+                setHp(Math.round(getHp()
+                        - Math.round(getHp() / RogueConstants.DEFENSE_HP_MULTIPLYER)));
+                setStrategyMultiplyer(getStrategyMultiplyer()
+                        + RogueConstants.DEFENSE_DAMAGE_MULTIPLYER);
             }
         }
     }

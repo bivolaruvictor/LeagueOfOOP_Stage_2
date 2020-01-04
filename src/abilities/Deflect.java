@@ -15,12 +15,12 @@ public class Deflect extends Ability {
     private int casterDamage;
     public Deflect(final Player player) {
         super(player);
+        setCasterLevel(player.getCasterLevel());
         setAbilityType(AbilityType.deflect);
-        setStrategyMultiplyer(player.getStrategyMultiplyer());
-        setHelperModifier(player.getHelperMultiplyer());
         setDeflectPercentage(Math.min(WizardConstants.DEFLECT_STARTING_PERCENTAGE
                 + WizardConstants.DEFLECT_PERCENTAGE_ADDED_PER_LEVEL
-                * player.getLevel(), WizardConstants.DEFLECT_MAXIMUM_PERCENTAGE));
+                * getCasterLevel() + getStrategyMultiplyer()
+                + getHelperModifier(), WizardConstants.DEFLECT_MAXIMUM_PERCENTAGE));
         if (getGameMap().getMap().get(player.getxCoordinate()).
                 get(player.getyCoordinate()).getTerrainType().equals(TerrainType.dessert)) {
             setLandModifier(LandMultipliers.DESERT_MULTIPLIER);
@@ -46,14 +46,16 @@ public class Deflect extends Ability {
     }
     /**/
     public void interactWith(final Knight player) {
-        setRaceModifier(RaceMultiplier.WIZARD_ON_KNIGHT_DEFLECT + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.WIZARD_ON_KNIGHT_DEFLECT
+                + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round(player.getBruteDamage()
                 * getDeflectPercentage() * getRaceModifier());
         player.setRecievedDamage(damageGiven);
     }
     /**/
     public void interactWith(final Pyromancer player) {
-        setRaceModifier(RaceMultiplier.WIZARD_ON_PYROMANCER_DEFLECT + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.WIZARD_ON_PYROMANCER_DEFLECT
+                + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round(player.getBruteDamage()
                 * getDeflectPercentage() * getRaceModifier());
         player.setRecievedDamage(damageGiven);
@@ -64,7 +66,8 @@ public class Deflect extends Ability {
     }
     /**/
     public void interactWith(final Rogue player) {
-        setRaceModifier(RaceMultiplier.WIZARD_ON_ROGUE_DEFLECT + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.WIZARD_ON_ROGUE_DEFLECT
+                + getStrategyMultiplyer() + getHelperModifier());
         int damageGiven = Math.round(player.getBruteDamage()
                 * getDeflectPercentage() * getRaceModifier());
         player.setRecievedDamage(damageGiven);

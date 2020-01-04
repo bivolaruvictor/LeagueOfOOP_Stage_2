@@ -14,14 +14,17 @@ public class Drain extends Ability {
     private float drainPercentage;
     public Drain(final Player player) {
         super(player);
+        setCasterLevel(player.getCasterLevel());
         setAbilityType(AbilityType.drain);
         setDrainPercentage(WizardConstants.DRAIN_STARTING_PERCENTAGE
-        + WizardConstants.DRAIN_PERCENTAGE_ADDED_PER_LEVEL * player.getLevel() + getStrategyMultiplyer() + getHelperModifier());
+        + WizardConstants.DRAIN_PERCENTAGE_ADDED_PER_LEVEL * getCasterLevel()
+                + getStrategyMultiplyer() + getHelperModifier());
 
         if (getGameMap().getMap().get(player.getxCoordinate()).
                 get(player.getyCoordinate()).getTerrainType().equals(TerrainType.dessert)) {
             setLandModifier(LandMultipliers.DESERT_MULTIPLIER);
-            setDrainPercentage(getDrainPercentage() * getLandModifier() + getStrategyMultiplyer() + getHelperModifier());
+            setDrainPercentage(getDrainPercentage() * getLandModifier()
+                    + getStrategyMultiplyer() + getHelperModifier());
         }
 
     }
@@ -35,7 +38,8 @@ public class Drain extends Ability {
     }
     /**/
     public void interactWith(final Knight player) {
-        setRaceModifier(RaceMultiplier.WIZARD_ON_KNIGHT_DRAIN + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.WIZARD_ON_KNIGHT_DRAIN
+                + getStrategyMultiplyer() + getHelperModifier());
         setDrainPercentage(getDrainPercentage() * getRaceModifier());
         int damageGiven = Math.round(getDrainPercentage()
                * Math.min(WizardConstants.DRAIN_HP_LIMIT_PERCENTAGE
@@ -45,7 +49,8 @@ public class Drain extends Ability {
     }
     /**/
     public void interactWith(final Pyromancer player) {
-        setRaceModifier(RaceMultiplier.WIZARD_ON_PYROMANCER_DRAIN + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.WIZARD_ON_PYROMANCER_DRAIN
+                + getStrategyMultiplyer() + getHelperModifier());
         setDrainPercentage(getDrainPercentage() * getRaceModifier());
         int damageGiven = Math.round(getDrainPercentage()
                 * Math.min(WizardConstants.DRAIN_HP_LIMIT_PERCENTAGE
@@ -54,7 +59,8 @@ public class Drain extends Ability {
     }
     /**/
     public void interactWith(final Wizard player) {
-        setRaceModifier(RaceMultiplier.WIZARD_ON_WIZARD_DRAIN + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.WIZARD_ON_WIZARD_DRAIN
+                + getStrategyMultiplyer() + getHelperModifier());
         setDrainPercentage(getDrainPercentage() * getRaceModifier());
         int damageGiven = Math.round(getDrainPercentage()
                 * Math.min(WizardConstants.DRAIN_HP_LIMIT_PERCENTAGE
@@ -63,7 +69,8 @@ public class Drain extends Ability {
     }
     /**/
     public void interactWith(final Rogue player) {
-        setRaceModifier(RaceMultiplier.WIZARD_ON_ROGUE_DRAIN + getStrategyMultiplyer() + getHelperModifier());
+        setRaceModifier(RaceMultiplier.WIZARD_ON_ROGUE_DRAIN
+                + getStrategyMultiplyer() + getHelperModifier());
         setDrainPercentage(getDrainPercentage() * getRaceModifier());
         int damageGiven = Math.round(getDrainPercentage()
                 * Math.min(WizardConstants.DRAIN_HP_LIMIT_PERCENTAGE
