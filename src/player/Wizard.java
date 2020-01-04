@@ -30,16 +30,18 @@ public class Wizard extends Player {
         Drain drain = (Drain) getAbilityFactory().getAbilityType(AbilityType.drain, player);
         drain.setStrategyMultiplyer(getStrategyMultiplyer());
         drain.setHelperModifier(getHelperMultiplyer());
-        //System.out.println("DRAIN "+ drain.getStrategyMultiplyer() + " " + drain.getHelperModifier());
         player.accept(drain);
         player.recieveDamage();
-        System.out.println(player.toString() + " drain " + player.getRecievedDamage());
+        System.out.println(player.typeToString() + " " + player.getId()
+                + " got drain " + player.getRecievedDamage());
         Deflect deflect = (Deflect) getAbilityFactory().getAbilityType(AbilityType.deflect, player);
         deflect.setStrategyMultiplyer(getStrategyMultiplyer());
         deflect.setHelperModifier(getHelperMultiplyer());
         player.accept(deflect);
         player.recieveDamage();
-        System.out.println(player.toString() + " deflect " + player.getRecievedDamage());
+        System.out.println(player.typeToString() + " " + player.getId()
+                + " got deflect " + player.getRecievedDamage());
+        System.out.println();
         super.fightPlayer(player);
     }
     /**/
@@ -52,7 +54,8 @@ public class Wizard extends Player {
             if (getHp() < getMaxHp() / WizardConstants.DEFENSE_MAX_HP_MULTIPLYER) {
                 setHp(getHp() + getHp() / WizardConstants.DEFENSE_HP_MULTIPLYER);
                 setStrategyMultiplyer(WizardConstants.DEFENSE_DAMAGE_MULTIPLYER);
-                System.out.println("AAAAAAAAAA");
+            } else {
+                setStrategyMultiplyer(0f);
             }
         }
     }

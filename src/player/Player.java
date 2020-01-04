@@ -386,7 +386,6 @@ public abstract class Player implements Visitable {
         } else {
             setBlock(getBlock() - 1);
         }
-        System.out.println("Round " + getRound() + " " + getTypeString() + getId() + " moved " + getMoves().get(getRound()));
     }
     /**/
     public void recieveDamage() {
@@ -457,6 +456,19 @@ public abstract class Player implements Visitable {
     public void getHelp(final Angel angel) {
         if (canBeHelped(angel)) {
             this.accept(angel);
+            if (this.isHelpedBy() != null) {
+                System.out.println(this.typeToString() + " " + this.getId() + " "
+                        + " Level: " + this.getLevel() + " Hp: "
+                        + this.getHp() + " Helped by: " + this.isHelpedBy().name()
+                        + " Strategy: " +  this.getStrategyMultiplyer()
+                        + " Helper: " + this.getHelperMultiplyer());
+            } else {
+                System.out.println(this.typeToString() + " " + this.getId() + " "
+                        + " Level: " + this.getLevel() + " Hp: "
+                        + this.getHp() + " Got No Help "
+                        + " Strategy: " +  this.getStrategyMultiplyer()
+                        + " Helper: " + this.getHelperMultiplyer());
+            }
         }
     }
 }

@@ -17,13 +17,13 @@ public final class Main {
         Input input = loader.load();
         try {
             FileSystem fs = new FileSystem(args[0], args[1]);
-            for (Player player : input.getPlayers()) {
-                System.out.println(player.getTypeString() + player.getId() + " " + player.getMoves().toString());
-            }
+
             for (int k = 0; k < input.getNumberOfRounds(); ++k) {
                 fs.writeWord("~~ Round " + (k + 1) + " ~~");
                 fs.writeNewLine();
-                System.out.println("Round " + k);
+                System.out.println("Round " + (k + 1));
+                System.out.println();
+                System.out.println("---Initial---");
                 for (Player player : input.getPlayers()) {
                     player.recieveOvertimeDamage();
                     if (player.getHp() <= 0) {
@@ -37,16 +37,28 @@ public final class Main {
                         player.movePlayer();
                     }
                     player.setHelpedBy(null);
-                    System.out.println(player.typeToString() + " " + player.getId() + " " + player.getHp());
+                    System.out.println(player.typeToString() + " " + player.getId() + " "
+                            + " Level: " + player.getLevel() + " Hp: "
+                            + player.getHp() + " Strategy: " +  player.getStrategyMultiplyer()
+                            + " Helper: " + player.getHelperMultiplyer());
                 }
+                System.out.println();
+                System.out.println("---Fight---");
                 for (int i = 0; i < input.getPlayers().size() - 1; ++i) {
                     for (int j = i + 1; j < input.getPlayers().size(); ++j) {
                         input.getPlayers().get(i).simulateFight(input.getPlayers().get(j));
                     }
                 }
+                System.out.println();
+                System.out.println("---After Fight---");
                 for (Player player : input.getPlayers()) {
+                    System.out.println(player.typeToString() + " " + player.getId() + " "
+                            + " Level: " + player.getLevel() + " Hp: "
+                            + player.getHp());
                     Magician.getInstance().update(player);
                 }
+                System.out.println();
+                System.out.println("---After Angels---");
                 /*Jucatorii primesc ajutor*/
                 if (input.getAngels().get(k) != null) {
                     for (Angel angel : input.getAngels().get(k)) {
@@ -65,9 +77,6 @@ public final class Main {
                         }
                     }
                 }
-                for (Player player : input.getPlayers()) {
-                    System.out.println(player.typeToString() + " " + player.getId() + " " + player.getHelperMultiplyer());
-                }
                 fs.writeWord(Magician.getInstance().getObservations());
                 Magician.getInstance().setObservations("");
                 fs.writeNewLine();
@@ -75,7 +84,13 @@ public final class Main {
             }
             fs.writeWord("~~ Results ~~");
             fs.writeNewLine();
+            System.out.println();
+            System.out.println("Results");
             for (Player player: input.getPlayers()) {
+                System.out.println(player.typeToString() + " " + player.getId() + " "
+                        + " Level: " + player.getLevel() + " Hp: "
+                        + player.getHp() + " Strategy: " +  player.getStrategyMultiplyer()
+                        + " Helper: " + player.getHelperMultiplyer());
                 if (player.isAlive()) {
                     fs.writeWord(player.typeToString() + " " + player.getLevel()
                             + " " + player.getXp() + " " + player.getHp() + " "

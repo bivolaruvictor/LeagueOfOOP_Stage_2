@@ -33,13 +33,16 @@ public class Knight extends Player {
         execute.setHelperModifier(getHelperMultiplyer());
         player.accept(execute);
         player.recieveDamage();
-        System.out.println(player.toString() + " execute " + player.getRecievedDamage());
+        System.out.println(player.typeToString() + " " + player.getId()
+                + " got execute " + player.getRecievedDamage());
         Slam slam = (Slam) getAbilityFactory().getAbilityType(AbilityType.slam, player);
         slam.setStrategyMultiplyer(getStrategyMultiplyer());
         slam.setHelperModifier(getHelperMultiplyer());
         player.accept(slam);
         player.recieveDamage();
-        System.out.println(player.toString() + " slam " + player.getRecievedDamage());
+        System.out.println(player.typeToString() + " " + player.getId()
+                + " got slam " + player.getRecievedDamage());
+        System.out.println();
         this.setBruteDamage(player.getBruteDamage());
         super.fightPlayer(player);
     }
@@ -55,6 +58,8 @@ public class Knight extends Player {
             if (getHp() < getMaxHp() / KnightConstants.DEFENSE_MAX_HP_MULTIPLYER) {
                 setHp(getHp() + getHp() / KnightConstants.DEFENSE_HP_MULTIPLYER);
                 setStrategyMultiplyer(KnightConstants.DEFENSE_DAMAGE_MULTIPLYER);
+            } else {
+                setStrategyMultiplyer(0f);
             }
         }
     }

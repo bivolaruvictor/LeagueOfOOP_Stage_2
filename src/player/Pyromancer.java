@@ -32,16 +32,33 @@ public class Pyromancer extends Player {
         fireblast.setHelperModifier(getHelperMultiplyer());
         player.accept(fireblast);
         player.recieveDamage();
-        System.out.println(player.toString() + " fireblast " + player.getRecievedDamage());
-
+        System.out.println(player.typeToString() + " " + player.getId()
+                + " got fireblast " + player.getRecievedDamage());
         Ignite ignite = (Ignite) getAbilityFactory().getAbilityType(AbilityType.ignite, player);
         ignite.setStrategyMultiplyer(getStrategyMultiplyer());
         ignite.setHelperModifier(getHelperMultiplyer());
         player.accept(ignite);
         player.recieveDamage();
-        System.out.println(player.toString() + " ignite " + player.getRecievedDamage());
-
+        System.out.println(player.typeToString() + " " + player.getId()
+                + " got ignite " + player.getRecievedDamage());
+        System.out.println();
         this.setBruteDamage(player.getBruteDamage());
         super.fightPlayer(player);
+    }
+    @Override
+    /**/
+    public void setStrategy() {
+        if (getMaxHp() / PyromancerConstants.OFFENSE_MIN_HP_MULTIPLYER < getHp()
+                && getHp() < getMaxHp() / PyromancerConstants.OFFENSE_MAX_HP_MULTIPLYER) {
+            setHp(getHp() - getHp() / PyromancerConstants.OFFENSE_HP_MULTIPLYER);
+            setStrategyMultiplyer(PyromancerConstants.OFFENSE_DAMAGE_MULTIPLYER);
+        } else {
+            if (getHp() < getMaxHp() / PyromancerConstants.DEFENSE_MAX_HP_MULTIPLYER) {
+                setHp(getHp() + getHp() / PyromancerConstants.DEFENSE_HP_MULTIPLYER);
+                setStrategyMultiplyer(PyromancerConstants.DEFENSE_DAMAGE_MULTIPLYER);
+            } else {
+                setStrategyMultiplyer(0f);
+            }
+        }
     }
 }

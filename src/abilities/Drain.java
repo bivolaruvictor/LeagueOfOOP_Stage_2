@@ -35,7 +35,6 @@ public class Drain extends Ability {
     }
     /**/
     public void interactWith(final Knight player) {
-        System.out.println("Strategy " + getStrategyMultiplyer());
         setRaceModifier(RaceMultiplier.WIZARD_ON_KNIGHT_DRAIN + getStrategyMultiplyer() + getHelperModifier());
         setDrainPercentage(getDrainPercentage() * getRaceModifier());
         int damageGiven = Math.round(getDrainPercentage()
