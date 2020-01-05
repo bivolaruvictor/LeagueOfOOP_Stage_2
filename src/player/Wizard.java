@@ -1,3 +1,10 @@
+/*
+ * Wizard.java
+ *
+ * 5/1/2020
+ *
+ * Bivolaru Victor-Alexandru 324CA
+ */
 package player;
 
 import abilities.AbilityType;
@@ -29,20 +36,15 @@ public class Wizard extends Player {
         player.setCasterLevel(getLevel());
         this.setBruteDamage(player.getBruteDamage());
         Drain drain = (Drain) getAbilityFactory().getAbilityType(AbilityType.drain, player);
-        drain.setStrategyMultiplyer(getStrategyMultiplyer());
-        drain.setHelperModifier(getHelperMultiplyer());
+        drain.prepareForBattle(this);
         player.accept(drain);
         player.recieveDamage();
-        System.out.println(player.typeToString() + " " + player.getId()
-                + " got drain " + player.getRecievedDamage());
+
         Deflect deflect = (Deflect) getAbilityFactory().getAbilityType(AbilityType.deflect, player);
-        deflect.setStrategyMultiplyer(getStrategyMultiplyer());
-        deflect.setHelperModifier(getHelperMultiplyer());
+        deflect.prepareForBattle(this);
         player.accept(deflect);
         player.recieveDamage();
-        System.out.println(player.typeToString() + " " + player.getId()
-                + " got deflect " + player.getRecievedDamage());
-        System.out.println();
+
         super.fightPlayer(player);
     }
     /**/

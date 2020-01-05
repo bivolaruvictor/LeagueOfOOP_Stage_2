@@ -1,6 +1,12 @@
+/*
+ * Fireblast.java
+ *
+ * 5/1/2020
+ *
+ * Bivolaru Victor-Alexandru 324CA
+ */
 package abilities;
 
-import constants.GameConstants;
 import constants.LandMultipliers;
 import constants.PyromancerConstants;
 import constants.RaceMultiplier;

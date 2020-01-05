@@ -31,24 +31,19 @@ public class Loader {
         List<Player> players = new ArrayList<Player>();
         List<List<Angel>> angels = new ArrayList<>();
         List<Terrain> terrains = new ArrayList<>();
-        GameMap gamemap = new GameMap();
-        int noRows = 0;
-        int noColumns = 0;
-        int noPlayers = 0;
-        int noAngels = 0;
+        int noRows;
+        int noColumns;
+        int noPlayers;
+        int noAngels;
         int noRounds = 0;
-        String pType = null;
-        String aType = null;
-        PlayerType playerType = null;
-        AngelType angelType = null;
-        int initialXCoordinate = -1;
-        int initialYCoordinate = -1;
-        int angelXCoordinate = -1;
-        int angelYCoordinate = -1;
-        String move = null;
-        String terrain = null;
-        String tType = null;
-        TerrainType terrainType = null;
+        String pType;
+        String aType;
+        int initialXCoordinate;
+        int initialYCoordinate;
+        int angelXCoordinate;
+        int angelYCoordinate;
+        String move;
+        String tType;
 
 
         try {
@@ -57,7 +52,6 @@ public class Loader {
             noRows = fs.nextInt();
             noColumns = fs.nextInt();
             GameMap gameMap = GameMap.getInstance(noRows, noColumns);
-            Magician grandMagician = Magician.getInstance();
 
             for (int i = 0; i < noRows; ++i) {
                 tType = fs.nextWord();
@@ -99,12 +93,14 @@ public class Loader {
                 if (noAngels != 0) {
                     for (int j = 0; j < noAngels; ++j) {
                         String buff = fs.nextWord();
+                        /*Impart stringul initial in substringuri despartite prin ','*/
                         String[] result = buff.split(",");
                         aType = result[0];
                         String x = result[1];
                         String y = result[2];
                         angelXCoordinate = 0;
                         angelYCoordinate = 0;
+                        /*Citesc caracter cu caracter stringul de dupa virgula si formez numere*/
                         for (int m = 0; m < x.length(); ++m) {
                             angelXCoordinate = angelXCoordinate
                                     * GameConstants.DECIMAL_BASE + (x.charAt(m) - '0');
@@ -123,14 +119,13 @@ public class Loader {
                 }
             }
             fs.close();
-
         } catch (Exception e1) {
             e1.printStackTrace();
         }
         return new Input(players, noRounds, angels);
     }
 
-    /**/
+    /*Transforma din string in TerrainType*/
     public TerrainType checkTerrain(final char terrain) {
         switch (terrain) {
             case ('V') :
@@ -145,7 +140,7 @@ public class Loader {
                 return null;
         }
     }
-    /**/
+    /*Transforma din string in PlayerType*/
     public PlayerType checkPlayer(final String player) {
         switch (player) {
             case ("K") :
@@ -160,7 +155,7 @@ public class Loader {
                 return null;
         }
     }
-    /**/
+    /*Transforma din string in AngelType*/
     public AngelType checkAngel(final String angel) {
         switch (angel) {
             case("DamageAngel"):
@@ -180,7 +175,7 @@ public class Loader {
             case("Spawner"):
                 return AngelType.Spawner;
             case("TheDoomer"):
-                return  AngelType.TheDoomer;
+                return AngelType.TheDoomer;
             case("XPAngel"):
                 return AngelType.XPAngel;
             default:

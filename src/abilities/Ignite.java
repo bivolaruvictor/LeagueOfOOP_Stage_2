@@ -1,3 +1,10 @@
+/*
+ * Ignite.java
+ *
+ * 5/1/2020
+ *
+ * Bivolaru Victor-Alexandru 324CA
+ */
 package abilities;
 
 import constants.LandMultipliers;
@@ -33,7 +40,8 @@ public class Ignite extends Ability {
                 + PyromancerConstants.IGNITE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getLandModifier()) * getRaceModifier());
         player.setRecievedDamage(damageGiven);
-        int secondaryDamage = Math.round(Math.round((PyromancerConstants.IGNITE_SECONDARY_STARTING_DAMAGE
+        int secondaryDamage = Math.round(Math.round((
+                PyromancerConstants.IGNITE_SECONDARY_STARTING_DAMAGE
                 + PyromancerConstants.IGNITE_SECONDARY_DAMAGE_PER_LEVEL * getCasterLevel())
                 * getLandModifier()) * getRaceModifier());
 

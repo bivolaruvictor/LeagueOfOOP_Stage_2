@@ -1,5 +1,6 @@
 package main;
 import java.io.IOException;
+import java.util.List;
 
 import angel.Angel;
 import angel.AngelType;
@@ -18,122 +19,76 @@ public final class Main {
         try {
             FileSystem fs = new FileSystem(args[0], args[1]);
 
-            for (int k = 0; k < input.getNumberOfRounds(); ++k) {
-                fs.writeWord("~~ Round " + (k + 1) + " ~~");
+            for (int round = 0; round < input.getNumberOfRounds(); ++round) {
+                fs.writeWord("~~ Round " + (round + 1) + " ~~");
                 fs.writeNewLine();
-                System.out.println();
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                        + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                System.out.println("\t \t \t \t \t \t \t Round " + (k + 1));
-                System.out.println();
-                System.out.println("---Initial---");
-                for (Player player : input.getPlayers()) {
-                    player.recieveOvertimeDamage();
-                    if (player.getHp() <= 0) {
-                        player.setAlive(false);
-                    }
-                    if (player.getBlock() == 0) {
-                        player.setStrategy();
-                    }
-                    player.setRound(k);
-                    if (player.isAlive()) {
-                        player.movePlayer();
-                    }
-                    player.setHelpedBy(null);
-                    if (player.isAlive()) {
-                        System.out.println(player.typeToString() + " " + player.getId() + " "
-                                + " Level: " + player.getLevel() + " Hp: "
-                                + player.getHp() + " Strategy: " +  player.getStrategyMultiplyer()
-                                + " Helper: " + player.getHelperMultiplyer());
-                    } else {
-                        System.out.println(player.typeToString() + " " + player.getId() + " "
-                                + " dead");
-                    }
-                }
-                System.out.println();
-                System.out.println("---Fight---");
-                for (int i = 0; i < input.getPlayers().size() - 1; ++i) {
-                    for (int j = i + 1; j < input.getPlayers().size(); ++j) {
-                        input.getPlayers().get(i).simulateFight(input.getPlayers().get(j));
-                    }
-                }
-                System.out.println();
-                System.out.println("---After Fight---");
-//                for (Player player : input.getPlayers()) {
-//                    if (player.isAlive()) {
-//                        System.out.println(player.typeToString() + " " + player.getId() + " "
-//                                + " Level: " + player.getLevel() + " Hp: "
-//                                + player.getHp());
-//                        Magician.getInstance().update(player);
-//                    } else {
-//                        System.out.println(player.typeToString() + " dead");
-//                        Magician.getInstance().update(player);
-//                    }
-//                }
-                System.out.println();
-                /*Jucatorii primesc ajutor*/
-                if (input.getAngels().get(k) != null) {
-                    for (Angel angel : input.getAngels().get(k)) {
-                        Magician.getInstance().update(angel);
-                        for (Player player : input.getPlayers()) {
-                            if (player.isAlive() && angel.getAngelType() != AngelType.Spawner) {
-                                player.getHelp(angel);
-                            } else {
-                                if (!player.isAlive()
-                                        && angel.getAngelType() == AngelType.Spawner) {
-                                    player.getHelp(angel);
-                                }
-                            }
-                            Magician.getInstance().update(player);
-                            player.setHelpedBy(null);
-                        }
-                    }
-                }
+                prepareFighters(input.getPlayers(), round);
+
+                fight(input.getPlayers());
+
+                /*Jucatorii primesc ajutor de la ingeri in runda curenta */
+                getAngelHelp(input.getAngels(), input.getPlayers(), round);
+
                 fs.writeWord(Magician.getInstance().getObservations());
                 Magician.getInstance().setObservations("");
                 fs.writeNewLine();
-                System.out.println();
-                System.out.println("---After Angels---");
-                for (Player player: input.getPlayers()) {
-                    if (player.isAlive()) {
-                        System.out.println(player.typeToString() + " " + player.getId() + " "
-                                + " Level: " + player.getLevel() + " Hp: "
-                                + player.getHp() + " Strategy: " + player.getStrategyMultiplyer()
-                                + " Helper: " + player.getHelperMultiplyer());
-                    } else {
-                        System.out.println(player.typeToString() + " " + player.getId() + " "
-                                + " dead");
-                    }
-                }
             }
             fs.writeWord("~~ Results ~~");
             fs.writeNewLine();
-            System.out.println();
-            System.out.println("Results");
             for (Player player: input.getPlayers()) {
-                if (player.isAlive()) {
-                    System.out.println(player.typeToString() + " " + player.getId() + " "
-                            + " Level: " + player.getLevel() + " Hp: "
-                            + player.getHp() + " Strategy: " +  player.getStrategyMultiplyer()
-                            + " Helper: " + player.getHelperMultiplyer());
-                } else {
-                    System.out.println(player.typeToString() + " " + player.getId() + " "
-                            + " dead");
-                }
-                if (player.isAlive()) {
-                    fs.writeWord(player.typeToString() + " " + player.getLevel()
-                            + " " + player.getXp() + " " + player.getHp() + " "
-                            + player.getxCoordinate() + " "
-                            + player.getyCoordinate());
-                } else {
-                    fs.writeWord(player.typeToString() + " " + "dead");
-                }
+                fs.writeWord(player.toString());
                 fs.writeNewLine();
             }
-
             fs.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**/
+    public static void prepareFighters(final List<Player> players, final int round) {
+        for (Player player : players) {
+            player.recieveOvertimeDamage();
+            if (player.getHp() <= 0) {
+                player.setAlive(false);
+            }
+            if (player.getBlock() == 0) {
+                player.setStrategy();
+            }
+            player.setRound(round);
+            if (player.isAlive()) {
+                player.movePlayer();
+            }
+            player.setHelpedBy(null);
+        }
+    }
+
+    public static void fight(final List<Player> players) {
+        for (int i = 0; i < players.size() - 1; ++i) {
+            for (int j = i + 1; j < players.size(); ++j) {
+                players.get(i).simulateFight(players.get(j));
+            }
+        }
+    }
+
+    public static void getAngelHelp(final List<List<Angel>> angels, final List<Player> players,
+                                    final int round) {
+        if (angels.get(round) != null) {
+            for (Angel angel : angels.get(round)) {
+                Magician.getInstance().update(angel);
+                for (Player player : players) {
+                    if (player.isAlive() && angel.getAngelType() != AngelType.Spawner) {
+                        player.getHelp(angel);
+                    } else {
+                        if (!player.isAlive()
+                                && angel.getAngelType() == AngelType.Spawner) {
+                            player.getHelp(angel);
+                        }
+                    }
+                    Magician.getInstance().update(player);
+                    player.setHelpedBy(null);
+                }
+            }
         }
     }
 }

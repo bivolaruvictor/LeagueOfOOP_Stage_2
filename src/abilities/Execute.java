@@ -1,3 +1,10 @@
+/*
+ * Execute.java
+ *
+ * 5/1/2020
+ *
+ * Bivolaru Victor-Alexandru 324CA
+ */
 package abilities;
 
 import constants.KnightConstants;
@@ -59,9 +66,6 @@ public class Execute extends Ability {
     public void interactWith(final Wizard player) {
         setRaceModifier(RaceMultiplier.KNIGHT_ON_WIZARD_EXECUTE
                 + getStrategyMultiplyer() + getHelperModifier());
-        System.out.println(getRaceModifier());
-        System.out.println((getBaseDamage()
-                + KnightConstants.EXECUTE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel()));
         int damageGiven = Math.round((getBaseDamage()
                 + KnightConstants.EXECUTE_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier());

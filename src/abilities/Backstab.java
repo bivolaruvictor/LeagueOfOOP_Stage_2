@@ -1,3 +1,10 @@
+/*
+ * Backstab.java
+ *
+ * 5/1/2020
+ *
+ * Bivolaru Victor-Alexandru 324CA
+ */
 package abilities;
 
 import constants.GameConstants;
@@ -58,7 +65,6 @@ public class Backstab extends Ability {
                 + RogueConstants.BACKSTAB_DAMAGE_ADDED_PER_LEVEL * getCasterLevel())
                 * getRaceModifier() * getLandModifier() * getCritical()
                 - GameConstants.MAGIC_NUMBER);
-        System.out.println(damageGiven);
         player.setRecievedDamage(damageGiven);
     }
     /**/

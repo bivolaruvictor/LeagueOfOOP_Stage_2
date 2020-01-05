@@ -1,3 +1,10 @@
+/*
+ * TheDoomer.java
+ *
+ * 5/1/2020
+ *
+ * Bivolaru Victor-Alexandru 324CA
+ */
 package angel;
 
 import player.Knight;
@@ -13,10 +20,8 @@ public class TheDoomer extends Angel {
     /**/
     @Override
     public void interactWith(final Knight knight) {
-        if (knight.isAlive()) {
-            knight.setHelpedBy(AngelType.TheDoomer);
-            knight.setAlive(false);
-        }
+        knight.setHelpedBy(AngelType.TheDoomer);
+        knight.setAlive(false);
         super.interactWith(knight);
     }
     /**/

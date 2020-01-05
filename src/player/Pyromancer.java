@@ -1,3 +1,10 @@
+/*
+ * Pyromancer.java
+ *
+ * 5/1/2020
+ *
+ * Bivolaru Victor-Alexandru 324CA
+ */
 package player;
 
 import abilities.AbilityType;
@@ -29,20 +36,15 @@ public class Pyromancer extends Player {
         player.setCasterLevel(getLevel());
         Fireblast fireblast = (Fireblast) getAbilityFactory()
                 .getAbilityType(AbilityType.fireblast, player);
-        fireblast.setStrategyMultiplyer(getStrategyMultiplyer());
-        fireblast.setHelperModifier(getHelperMultiplyer());
+        fireblast.prepareForBattle(this);
         player.accept(fireblast);
         player.recieveDamage();
-        System.out.println(player.typeToString() + " " + player.getId()
-                + " got fireblast " + player.getRecievedDamage());
+
         Ignite ignite = (Ignite) getAbilityFactory().getAbilityType(AbilityType.ignite, player);
-        ignite.setStrategyMultiplyer(getStrategyMultiplyer());
-        ignite.setHelperModifier(getHelperMultiplyer());
+        ignite.prepareForBattle(this);
         player.accept(ignite);
         player.recieveDamage();
-        System.out.println(player.typeToString() + " " + player.getId()
-                + " got ignite " + player.getRecievedDamage());
-        System.out.println();
+
         this.setBruteDamage(player.getBruteDamage());
         super.fightPlayer(player);
     }

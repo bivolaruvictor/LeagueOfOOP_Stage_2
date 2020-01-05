@@ -1,3 +1,10 @@
+/*
+ * Rogue.java
+ *
+ * 5/1/2020
+ *
+ * Bivolaru Victor-Alexandru 324CA
+ */
 package player;
 
 import abilities.AbilityType;
@@ -31,22 +38,16 @@ public class Rogue extends Player {
         player.setCasterLevel(getLevel());
         Backstab backstab = (Backstab) getAbilityFactory()
                 .getAbilityType(AbilityType.backstab, player);
-        backstab.setStrategyMultiplyer(getStrategyMultiplyer());
-        backstab.setHelperModifier(getHelperMultiplyer());
+        backstab.prepareForBattle(this);
         player.accept(backstab);
         player.recieveDamage();
-        System.out.println(player.typeToString() + " " + player.getId()
-                + " got backstab "
-                + player.getRecievedDamage());
+
         Paralysis paralysis = (Paralysis) getAbilityFactory()
                 .getAbilityType(AbilityType.paralysis, player);
-        paralysis.setStrategyMultiplyer(getStrategyMultiplyer());
-        paralysis.setHelperModifier(getHelperMultiplyer());
+        paralysis.prepareForBattle(this);
         player.accept(paralysis);
         player.recieveDamage();
-        System.out.println(player.typeToString() + " " + player.getId()
-                + " got paralysis " + player.getRecievedDamage());
-        System.out.println();
+
         this.setBruteDamage(player.getBruteDamage());
         super.fightPlayer(player);
     }

@@ -1,3 +1,10 @@
+/*
+ * Knight.java
+ *
+ * 5/1/2020
+ *
+ * Bivolaru Victor-Alexandru 324CA
+ */
 package player;
 
 import abilities.AbilityType;
@@ -8,7 +15,6 @@ import constants.LandMultipliers;
 import abilities.Visitor;
 
 public class Knight extends Player {
-
     public Knight() {
         super();
         setType(PlayerType.knight);
@@ -30,20 +36,15 @@ public class Knight extends Player {
     public void fightPlayer(final Player player) {
         player.setCasterLevel(getLevel());
         Execute execute = (Execute) getAbilityFactory().getAbilityType(AbilityType.execute, player);
-        execute.setStrategyMultiplyer(getStrategyMultiplyer());
-        execute.setHelperModifier(getHelperMultiplyer());
+        execute.prepareForBattle(this);
         player.accept(execute);
         player.recieveDamage();
-        System.out.println(player.typeToString() + " " + player.getId()
-                + " got execute " + player.getRecievedDamage());
+
         Slam slam = (Slam) getAbilityFactory().getAbilityType(AbilityType.slam, player);
-        slam.setStrategyMultiplyer(getStrategyMultiplyer());
-        slam.setHelperModifier(getHelperMultiplyer());
+        slam.prepareForBattle(this);
         player.accept(slam);
         player.recieveDamage();
-        System.out.println(player.typeToString() + " " + player.getId()
-                + " got slam " + player.getRecievedDamage());
-        System.out.println();
+
         this.setBruteDamage(player.getBruteDamage());
         super.fightPlayer(player);
     }

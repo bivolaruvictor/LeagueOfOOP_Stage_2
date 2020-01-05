@@ -1,3 +1,10 @@
+/*
+ * Ability.java
+ *
+ * 5/1/2020
+ *
+ * Bivolaru Victor-Alexandru 324CA
+ */
 package abilities;
 
 import main.GameMap;
@@ -99,5 +106,10 @@ public abstract class Ability implements Visitor {
     /**/
     public void hurt(final Player player) {
         player.setRecievedDamage(getDamage());
+    }
+    /**/
+    public void prepareForBattle(final Player player) {
+        setHelperModifier(player.getHelperMultiplyer());
+        setStrategyMultiplyer(player.getStrategyMultiplyer());
     }
 }

@@ -1,6 +1,4 @@
 Starting audit...
-[ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/abilities/Fireblast.java:3:8: Unused import - constants.GameConstants. [UnusedImports]
-[ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/abilities/Ignite.java:36: Line is longer than 100 characters (found 105). [LineLength]
-[ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/player/Player.java:188:5: Class 'Player' looks like designed for extension (can be subclassed), but the method 'isDead' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'Player' final or making the method 'isDead' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
+[ERROR] /mnt/c/Users/bivol/IdeaProjects/LeagueOfOOP_Stage_2/src/player/Player.java:172:5: Class 'Player' looks like designed for extension (can be subclassed), but the method 'isDead' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'Player' final or making the method 'isDead' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
 Audit done.
-Checkstyle ends with 3 errors.
+Checkstyle ends with 1 errors.
